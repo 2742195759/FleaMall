@@ -32,12 +32,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/button_confirm"
             android:layout_weight="1"
+            android:background="@drawable/shape"
             android:text="确认"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/button_cancel"
             android:layout_weight="1"
+            android:background="@drawable/shape"
             android:text="取消"/>
     </LinearLayout>
 </LinearLayout>

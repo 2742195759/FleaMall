@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/evaluation_button"
         android:layout_weight="1"
+        android:background="@drawable/shape"
         android:text="他人评价"
         />
     <Button
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/order_button"
         android:layout_weight="1"
+        android:background="@drawable/shape"
         android:text="我的订单"
         />
     <Button
@@ -29,6 +31,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/person_history_button"
         android:layout_weight="1"
+        android:background="@drawable/shape"
         android:text="交易过的人"
         />
     <Button
@@ -36,6 +39,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/goods_history_button"
         android:layout_weight="1"
+        android:background="@drawable/shape"
         android:text="浏览过的物品"
         />
     <com.example.homepage.BottomTitleLayout

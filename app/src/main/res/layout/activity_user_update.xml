@@ -7,17 +7,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/change_head_portrait"
+        android:background="@drawable/shape"
         android:text="更改头像"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape"
         android:id="@+id/change_nick"
         android:text="更改昵称"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape"
         android:id="@+id/max_card"
         android:text="我的二维码名片"
         />

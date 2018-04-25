@@ -8,17 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/quit_button"
+        android:background="#00000000"
         android:text="退出登录"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/help_button"
+        android:background="#00000000"
         android:text="关于"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/about_button"
+        android:background="#00000000"
         android:text="帮助"/>
 
 </LinearLayout>

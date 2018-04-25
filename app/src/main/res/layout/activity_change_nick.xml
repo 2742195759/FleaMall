@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/store"
         android:text="保存"
-        android:background="#FF4500"
+        android:background="@drawable/shape"
         />
 
 </LinearLayout>

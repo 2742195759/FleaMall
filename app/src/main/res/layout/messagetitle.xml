@@ -9,20 +9,23 @@
         android:layout_weight="1"
         android:layout_gravity="top"
         android:id="@+id/logistics_button"
-        android:text="物流"/>
+        android:background="#00000000"
+        android:text="🚛"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:layout_weight="1"
         android:id="@+id/notice_button"
-        android:text="通知"/>
+        android:background="#00000000"
+        android:text="🔔"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:layout_weight="1"
-        android:text="互动"
+        android:background="#00000000"
+        android:text="📬"
         android:id="@+id/chat_button"/>
 
 </LinearLayout>
