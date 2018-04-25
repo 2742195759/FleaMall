@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.example.homepage.SearchLayout
+        app:layout_widthPercent="100%"
+        app:layout_heightPercent="8%"
+        android:layout_gravity="top"
+        />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/homepage_recyclerview"
+        app:layout_widthPercent="100%"
+        app:layout_heightPercent="84%"
+        android:layout_gravity="center_vertical"
+        />
+
+    <com.example.homepage.BottomTitleLayout
+        android:id="@+id/homepage_bottomtitle"
+        android:layout_gravity="bottom"
+        app:layout_widthPercent="100%"
+        app:layout_heightPercent="8%"
+        />
+</android.support.percent.PercentFrameLayout>

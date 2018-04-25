@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_mine_middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></include>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/evaluation_button"
+        android:layout_weight="1"
+        android:text="他人评价"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/order_button"
+        android:layout_weight="1"
+        android:text="我的订单"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/person_history_button"
+        android:layout_weight="1"
+        android:text="交易过的人"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/goods_history_button"
+        android:layout_weight="1"
+        android:text="浏览过的物品"
+        />
+    <com.example.homepage.BottomTitleLayout
+        android:id="@+id/mine_bottomtitle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>
