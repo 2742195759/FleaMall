@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.homepage">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -44,7 +45,19 @@
         <activity android:name=".Message1" />
         <activity android:name=".UserUpdateActivity" />
         <activity android:name=".ChangeNickActivity" />
-        <activity android:name=".CreatSellCommodity"></activity>
+        <activity android:name=".CreatSellCommodity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.homepage.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".SelectPicPopupWindow" />
     </application>
 
 </manifest>

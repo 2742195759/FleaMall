@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        MineActivity.instance.finish();
         ActionBar actionbar = getSupportActionBar();
         if(actionbar!=null) {
             actionbar.hide();
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void handle_result( RspSingleRow result){
                         //此账户存在
                         if(result.getState().equals("success") ){
+                            Account.login_flag = true;
                             //获得用户的学号
                             String sno = "";
                             if(result.testKey("sno") == 2){
@@ -64,12 +66,9 @@ public class LoginActivity extends AppCompatActivity {
                             }
                             Account.account = sno;
                             Account.password = password;
-                            if(result.testKey("nick")==2)
-                                Account.nick = result.getString("nick") ;
                             Intent intent = new Intent(LoginActivity.this,MineActivity.class);
-                            startActivityForResult(intent,1);
+                            startActivity(intent);
                             Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
-                            Account.login_flag = true;
                         }
                         else{
                             Toast.makeText(LoginActivity.this,"登录失败" ,Toast.LENGTH_SHORT).show();

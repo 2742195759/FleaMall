@@ -17,36 +17,12 @@ import Respond.* ;
 
 public class MineActivity extends AppCompatActivity {
     Button nickButton,headPortraitButton;
-    //public static MineActivity instance = null;
-
-    @Override
-    protected void onStart() {
-        super.onStart() ;
-        //点击昵称按钮修改昵称
-        nickButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MineActivity.this,UserUpdateActivity.class);
-                startActivity(intent);
-            }
-        });
-        if(Account.login_flag == false){
-            nickButton.setText("未登录");
-        }
-        else{
-            if(Account.nick.equals("")){
-                nickButton.setText("请修改昵称");
-            }
-            else{
-                nickButton.setText(Account.nick);
-            }
-        }
-    }
+    public  static MineActivity instance = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //instance=this;
+        instance=this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_mine);
         //昵称显示控件
@@ -75,6 +51,7 @@ public class MineActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                     else {
+
                         Intent intent = new Intent(MineActivity.this, UserUpdateActivity.class);
                         startActivity(intent);
                     }
@@ -82,7 +59,25 @@ public class MineActivity extends AppCompatActivity {
                 }
 
         });
-
+        //点击昵称按钮修改昵称
+        nickButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MineActivity.this,UserUpdateActivity.class);
+                startActivity(intent);
+            }
+        });
+        if(Account.login_flag == false){
+            nickButton.setText("未登录");
+        }
+        else{
+            if(Account.nick.equals("")){
+                nickButton.setText("昵称");
+            }
+            else{
+                nickButton.setText(Account.nick);
+            }
+        }
     }
 
     //登陆界面销毁后此活动重启调用
