@@ -1,4 +1,8 @@
 package Respond;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 ///检验的时候只需要检查RspMultiRow的state就可以,不需要考虑内部的SingleRow的提示(他们没有用)
 public class RspMultiRow extends Respond{
 	RspSingleRow[] arr_rsp = null ; 
@@ -25,6 +29,13 @@ public class RspMultiRow extends Respond{
 			arr_rsp = now ; 
 		}
 		arr_rsp[size++] = rsr ; 
+	}
+	public void AddMultiRow(ResultSet rs , String ... s) throws Exception {
+		while(rs.next()) {
+			RspSingleRow rsr = new RspSingleRow().insertFromResultSet(rs, s) ; 
+			if(!rsr.getState().equals("success")) throw new Exception(rsr.getState());
+			AddSingleRow(rsr) ; 
+		}
 	}
 	public int size() {
 		return size ; 

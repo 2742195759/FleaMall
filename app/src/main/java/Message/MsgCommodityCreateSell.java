@@ -26,7 +26,7 @@ import java.util.UUID ;
  * (int)rsp.getExtra() 表示返回的商品号码.
  * [注意]
  * (brief:<100字符,汉字表示2个字符,以后都是一样的) ;
- * (detail < 10000字符 , 汉字表示2个字符) ;
+ * (detail < 10000字符 , 汉字表示2个字符) ; 
  * (price 是字符串类型.所以一定要进行转换.) ; 
  */
 public class MsgCommodityCreateSell extends Message{

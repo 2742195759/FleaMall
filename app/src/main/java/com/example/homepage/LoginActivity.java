@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                             Account.account = sno;
                             Account.password = password;
+                            if(result.testKey("nick") == 2) Account.nick = result.getString("nick") ;
                             Intent intent = new Intent(LoginActivity.this,MineActivity.class);
                             startActivity(intent);
                             Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();

@@ -33,9 +33,12 @@ public class SqlTool {
 	static public String genInsert(String table , String[] id , String[] val) {
 		int len = id.length ;
 		assert(len == val.length) ;  
-		String col = "", vals =""; 
+		String col = "", vals ="";
+		int start = 0 ;
 		for(int i=0;i<len;++i) {
-			if(i > 0) {col += " , " ; vals += " , " ;}
+			if(val[i] == null) continue ;
+			if(start > 0) {col += " , " ; vals += " , " ;}
+			++start ;
 			col += id[i] ;
 			if(val[i].toString().equals("now()")) {
 				vals += String.format("%s", val[i].toString()); 
@@ -50,8 +53,11 @@ public class SqlTool {
 		int len = id.length ;
 		assert(len == val.length) ;
 		String where = "";
+		int start = 0 ;
 		for(int i=0;i<len;++i) {
-			if(i > 0) {where += " and " ;}
+			if(val[i] == null) continue ;
+			if(start > 0) {where += " and " ;}
+			++start ;
 			where += id[i] + " = " + String.format("\'%s\'", val[i].toString());  ; 
 		}
 		return String.format("delete from %s where %s ;", table , where) ; 

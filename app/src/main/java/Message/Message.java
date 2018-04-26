@@ -85,10 +85,10 @@ public abstract class Message implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	static final String server_ip = "127.0.0.1" ; 
+	//static final String server_ip = "127.0.0.1" ;
+	//static final int port = 3511 ;
+	static final String server_ip = "211.159.180.189" ;
 	static final int port = 3511 ;
-//	static final String server_ip = "211.159.180.189" ; 
-//	static final int port = 3511 ;
 	private String no , pword ; ///表示发起人的sno和pword身份。
 	public Message(String self_no , String self_pword) {
 		no = self_no ; pword = self_pword ; 

@@ -40,22 +40,25 @@ public class CreatSellCommodity extends AppCompatActivity {
     public static final int CHOOSE_PHOTO = 2;
     private ImageView picture;
     private Uri imageUri;
+    EditText information ;
+    EditText price ;
+    EditText address ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.creat_sell_commodity_layout);
         Button ConfirmButton = (Button) findViewById(R.id.issue);
-        final EditText information =  (EditText) findViewById(R.id.information);
-        final EditText price =  (EditText) findViewById(R.id.price);
-        final EditText address =  (EditText) findViewById(R.id.address);
+        information =  (EditText) findViewById(R.id.information);
+        price =  (EditText) findViewById(R.id.price);
+        address =  (EditText) findViewById(R.id.address);
         //用户发布信息确定按钮
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
-            String Information = information.getText().toString();
-            String Price = price.getText().toString();
-            String Address = address.getText().toString();
+
             @Override
             public void onClick(View v) {
-                Toast.makeText(CreatSellCommodity.this,"123",Toast.LENGTH_SHORT).show();
+                String Information = information.getText().toString();
+                String Price = price.getText().toString();
+                String Address = address.getText().toString();
                 new MessageAsync<Respond>( new MsgCommodityCreateSell(Account.account,null,
                         Information,Price,Address,Account.password,null )) {
                     @Override
@@ -85,8 +88,8 @@ public class CreatSellCommodity extends AppCompatActivity {
             }
         });
 
-
-        setContentView(R.layout.creat_sell_commodity_layout);
+        //每一次setContentView都会重新绑定id -> view , 所以一定之可以弄一次.
+        //setContentView(R.layout.creat_sell_commodity_layout);
         Button button = (Button) findViewById(R.id.photograph) ;
         img = (ImageView) findViewById(R.id.phtot_commodity) ;
         button.setOnClickListener(new View.OnClickListener(){

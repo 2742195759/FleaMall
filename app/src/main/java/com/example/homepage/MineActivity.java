@@ -59,6 +59,12 @@ public class MineActivity extends AppCompatActivity {
                 }
 
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         //点击昵称按钮修改昵称
         nickButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +78,7 @@ public class MineActivity extends AppCompatActivity {
         }
         else{
             if(Account.nick.equals("")){
-                nickButton.setText("昵称");
+                nickButton.setText("请更改昵称");
             }
             else{
                 nickButton.setText(Account.nick);

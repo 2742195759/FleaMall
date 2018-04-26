@@ -13,7 +13,8 @@ import Respond.RspSingleRow;
  * 	pword --- 表示用户的密码(password) ;
  * output:
  * 	返回一个RspSingleRow rsp ; 
- * 	rsp.state.equal("success") 表示存在这个账户,并且可以使用getXXX来获取set内的信息.
+ * 	rsp.state.equal("success") 
+ * 表示存在这个账户,并且可以使用getXXX来获取set内的信息.
  */
 public class MsgLogin extends Message{
 	//public static final String fail_acc_or_pword = "No such account\n" ; 
