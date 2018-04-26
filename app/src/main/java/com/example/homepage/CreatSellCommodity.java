@@ -50,20 +50,21 @@ public class CreatSellCommodity extends AppCompatActivity {
         final EditText address =  (EditText) findViewById(R.id.address);
         //用户发布信息确定按钮
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
+            String Information = information.getText().toString();
+            String Price = price.getText().toString();
+            String Address = address.getText().toString();
             @Override
             public void onClick(View v) {
-                String Information = information.getText().toString();
-                String Price = price.getText().toString();
-                String Address = address.getText().toString();
-
-                new MessageAsync<Respond>( new MsgCommodityCreateSell(Account.account, null, Information, Price,
-                        Address, Account.password, null)) {
+                Toast.makeText(CreatSellCommodity.this,"123",Toast.LENGTH_SHORT).show();
+                new MessageAsync<Respond>( new MsgCommodityCreateSell(Account.account,null,
+                        Information,Price,Address,Account.password,null )) {
                     @Override
                     public void handle_result( Respond result){
-
                         if(result.getState().equals("success") )
                         {
                             Toast.makeText(CreatSellCommodity.this,"发布成功",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(CreatSellCommodity.this,HomePageActivity.class);
+                            startActivity(intent);
                         }
                         else
                         {
@@ -71,7 +72,6 @@ public class CreatSellCommodity extends AppCompatActivity {
                         }
                     }
                 }.excute();
-
             }
         });
 
