@@ -16,9 +16,11 @@ import Respond.Respond;
 import Respond.RspSingleRow;
 
 import static junit.framework.Assert.assertEquals;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import android.content.Context ;
 
 public class LoginActivity extends AppCompatActivity {
-
+    private Context CONTEXT = this ;
     private EditText editText1;
     private EditText editText2;
     private LocalBroadcastManager localBroadcastManager;
@@ -48,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         Button LoginButton = (Button) findViewById(R.id.button_login);
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 //获得哟用户输入的账户，密码
                 String account = editText1.getText().toString();
                 final String password = editText2.getText().toString();
@@ -68,11 +70,19 @@ public class LoginActivity extends AppCompatActivity {
                             Account.password = password;
                             if(result.testKey("nick") == 2) Account.nick = result.getString("nick") ;
                             Intent intent = new Intent(LoginActivity.this,MineActivity.class);
+                            Toast.makeText(LoginActivity.this,"登录成功" ,Toast.LENGTH_SHORT).show();
                             startActivity(intent);
-                            Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+
                         }
-                        else{
-                            Toast.makeText(LoginActivity.this,"登录失败" ,Toast.LENGTH_SHORT).show();
+                        else if(result.getState().equals("WrongPassword")){
+                            new SweetAlertDialog(CONTEXT, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("Wrong password or account")
+                                    .show();
+                        }
+                        else {
+                            new SweetAlertDialog(CONTEXT, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("Some thing Wrong in server\n")
+                                    .show();
                         }
 
                     }

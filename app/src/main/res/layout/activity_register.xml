@@ -8,11 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/textview_register"/>
+
     <EditText
+        android:id="@+id/edittext_number"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/edittext_number"
-        android:hint="请输入学号"/>
+        android:hint="请输入学号" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="match_parent"
