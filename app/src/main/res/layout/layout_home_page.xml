@@ -11,13 +11,12 @@
         android:layout_gravity="top"
         />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/homepage_recyclerview"
+    <com.example.homepage.CommodityView
         app:layout_widthPercent="100%"
         app:layout_heightPercent="84%"
-        android:layout_gravity="center_vertical"
-        />
+        android:id="@+id/commodity_view"
+        android:layout_gravity="center_vertical">
+    </com.example.homepage.CommodityView>
 
     <com.example.homepage.BottomTitleLayout
         android:id="@+id/homepage_bottomtitle"
