@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                 //将用户输入的账号密码发送至服务器进行比对
                 new MessageAsync<RspSingleRow>(new MsgLogin(account,password)) {
                     @Override
-                    public void handle_result( RspSingleRow result){
+                    public void handle_result( RspSingleRow result , int cnt ){
                         //此账户存在
                         if(result.getState().equals("success") ){
                             Account.login_flag = true;

@@ -1,4 +1,5 @@
 package Message;
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -87,8 +88,21 @@ public abstract class Message implements java.io.Serializable{
 	 */
 	//static final String server_ip = "127.0.0.1" ;
 	//static final int port = 3511 ;
+	//static final String image_path = "/home/xopngkun/桌面/image/" ; 
+	//static final String path_delm = "/" ; 
 	static final String server_ip = "211.159.180.189" ;
 	static final int port = 3511 ;
+	static final String image_path = "C:\\image\\" ;
+	static final String path_delm = "\\" ; 
+	protected static String getPhotePath(String cno , int pno) {
+		return String.format(image_path + "%s%s%03d.jpg", cno , path_delm , pno) ; 
+	}
+	protected static void createPhoteDir(String cno) {
+		File dir = new File(image_path + cno) ;    
+		if(!dir.exists()) {
+			dir.mkdirs() ; 
+		}
+	}
 	private String no , pword ; ///表示发起人的sno和pword身份。
 	public Message(String self_no , String self_pword) {
 		no = self_no ; pword = self_pword ; 
@@ -97,10 +111,10 @@ public abstract class Message implements java.io.Serializable{
 		Respond res = null ; /// 返回的Rsp.
 		try {
 			Socket sock = new Socket(server_ip , port) ;
-			ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream()) ; 
+			ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream()) ;
 			ObjectInputStream ois = new ObjectInputStream(sock.getInputStream()) ;
-			oos.writeObject(this); 
-			res = (Respond) ois.readObject() ; 
+			oos.writeObject(this);
+			res = (Respond) ois.readObject() ;
 			sock.close() ;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -115,13 +129,17 @@ public abstract class Message implements java.io.Serializable{
 			///根据传入的参数和用户名来验证。是否要进行other/self的读写。
 			///如果pword==null则相对的r / w -> or , ow ; 需要的权限一般更高。
 			///如果pword!=null则r / w 改写为 sr , sw ; 表示对自己修改。
-			if(pword == null) 	a.other = "1" ;
-			else a.other = "0" ; 
+			if(pword == null || no == null) 	a.other = "1" ;
+			else if((isOwner(conn , no)))a.other = "0" ; 
 			if(a.check(conn , no) == false) 
 				return false ; 
 		}
 		return true ;
 	}	
+	protected boolean isOwner(Connection conn, String no2) throws Exception {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	private static final long serialVersionUID = 0001L;
 	public final Respond wrapHandle(Connection conn) {
 		///使用handle作为虚函数.作为msg类的多态处理信息.
@@ -167,4 +185,18 @@ public abstract class Message implements java.io.Serializable{
 	protected abstract Respond handle(Connection conn) throws Exception ;///使用handle作为虚函数.作为msg类的多态处理信息.
 	protected abstract Respond exceptHandle(Exception e) ; ///出错了之后的处理.常规是: new Respond 然后
 	protected abstract Authority[] getAuthorityArray() ;
+	public static void swapImage(Connection conn, String path, String photoPath) throws Exception {
+		// TODO Auto-generated method stub
+		// A 的内容变为 B ; 文件实现重排.
+		File A = new File(path) ; File B = new File(photoPath) ; 
+		if(!A.exists() || !B.exists()) throw new Exception("FileError") ;
+		File Aold = new File(path+".old") ; File Bold = new File(photoPath + ".old") ;
+		if(Aold.exists()) Aold.delete() ; 
+		A.renameTo(Aold) ; A.delete() ; 
+		B.renameTo(A) ; 
+		//数据库改变
+		Statement stm = conn.createStatement() ; 
+		
+		
+	}
 }

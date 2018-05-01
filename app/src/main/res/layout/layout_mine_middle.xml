@@ -1,35 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/head_portrait"
-
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/headportrait"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/nick"
+        android:layout_width="188dp"
         android:layout_height="wrap_content"
-        android:id="@+id/user_name"
-        android:layout_toRightOf="@id/head_portrait"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:background="@android:color/transparent"
-        android:text="昵称                           "
-        android:layout_alignBottom="@id/head_portrait" />
+        android:text="昵称:"
+        app:layout_constraintStart_toEndOf="@+id/head_portrait"
+        app:layout_constraintTop_toTopOf="@+id/head_portrait" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/addr"
+        android:layout_width="188dp"
         android:layout_height="wrap_content"
-        android:id="@+id/setting_button"
-        android:background="#00000000"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:text="⚙"
-        />
-</RelativeLayout>
+        android:layout_marginTop="27dp"
+        android:background="@android:color/transparent"
+        android:text="地址:"
+        app:layout_constraintStart_toStartOf="@+id/nick"
+        app:layout_constraintTop_toTopOf="@+id/nick" />
+
+    <TextView
+        android:id="@+id/conway"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="27dp"
+        android:background="@android:color/transparent"
+        android:text="联系:"
+        app:layout_constraintStart_toStartOf="@+id/nick"
+        app:layout_constraintTop_toTopOf="@+id/addr" />
+
+    <TextView
+        android:id="@+id/more"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/transparent"
+        android:text="备注:"
+        app:layout_constraintBottom_toBottomOf="@+id/head_portrait"
+        app:layout_constraintStart_toStartOf="@+id/nick"
+        app:layout_constraintTop_toTopOf="@+id/conway"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        android:background="#ff000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/head_portrait" />
+
+</android.support.constraint.ConstraintLayout>
 
 

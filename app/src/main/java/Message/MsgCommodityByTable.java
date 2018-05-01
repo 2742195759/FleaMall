@@ -47,7 +47,7 @@ public class MsgCommodityByTable extends Message{
 		ResultSet rs = stm.executeQuery(sql)  ; 
 		RspMultiRow rmr = new RspMultiRow() ; 
 		while(rs.next()) {
-			RspSingleRow rsr = new RspSingleRow().insertFromResultSet(rs, "cno" , "detail" , "brief" , "price" , "addr" , "head_photo") ; 
+			RspSingleRow rsr = new RspSingleRow().insertFromResultSet(rs, "cno" , "detail" , "brief" , "price" , "addr") ; 
 			if(!rsr.getState().equals("success")) throw new Exception(rsr.getState());
 			rmr.AddSingleRow(rsr) ; 
 		}

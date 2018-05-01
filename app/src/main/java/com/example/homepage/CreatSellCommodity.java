@@ -62,7 +62,7 @@ public class CreatSellCommodity extends AppCompatActivity {
                 new MessageAsync<Respond>( new MsgCommodityCreateSell(Account.account,null,
                         Information,Price,Address,Account.password,null )) {
                     @Override
-                    public void handle_result( Respond result){
+                    public void handle_result( Respond result , int cnt){
                         if(result.getState().equals("success") )
                         {
                             Toast.makeText(CreatSellCommodity.this,"发布成功",Toast.LENGTH_SHORT).show();

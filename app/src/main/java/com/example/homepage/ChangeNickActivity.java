@@ -32,7 +32,7 @@ public class ChangeNickActivity extends AppCompatActivity {
                 new_nick_str = new_nick.getText().toString();
                 new MessageAsync<Respond>(new MsgAccoutUpdate(acc,pas,new_nick_str,null,null,null) ) {
                     @Override
-                    public void handle_result(Respond result) {
+                    public void handle_result(Respond result , int cnt) {
                         if(result.getState().equals("success") ){
                             //得到用户输入的新昵称
                             Account.nick = new_nick_str ;

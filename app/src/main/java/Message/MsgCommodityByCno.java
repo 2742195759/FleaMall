@@ -27,7 +27,7 @@ public class MsgCommodityByCno extends Message { ///不需要权限
 		Statement stm = conn.createStatement() ; 
 		ResultSet rs = stm.executeQuery(String.format("select * from Commodity where cno = \'%s\'", cno)) ; 
 		RspSingleRow rsr = new RspSingleRow() ; 
-		return rsr.insertFromResultSet(rs, "cno" , "detail" , "brief" , "price" , "addr" , "head_photo") ;
+		return rsr.insertFromResultSet(rs, "cno" , "detail" , "brief" , "price" , "addr") ;
 	}
 
 	@Override

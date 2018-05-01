@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     new MessageAsync<Respond>(new MsgRegister(account,password_1)) {
                         @Override
-                        public  void handle_result(Respond result) {
+                        public  void handle_result(Respond result , int cnt) {
                             if(result.success())
                                 Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);

@@ -16,7 +16,8 @@ import Message.* ;
 import Respond.* ;
 
 public class MineActivity extends AppCompatActivity {
-    Button nickButton,headPortraitButton;
+    Button headPortraitButton;
+    TextView nickButton ;
     public  static MineActivity instance = null;
 
     @Override
@@ -25,14 +26,23 @@ public class MineActivity extends AppCompatActivity {
         instance=this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_mine);
+        ((CommodityView)findViewById(R.id.commodity_view)).setMessage(new MsgCommodityByTable(Account.account,
+                Account.password, MsgCommodityByTable.Sell)) ;
         //昵称显示控件
-        nickButton = (Button) findViewById(R.id.user_name);
+        nickButton = (TextView) findViewById(R.id.nick);
         //标题栏隐去
         ActionBar actionbar = getSupportActionBar();
         if(actionbar!=null) {
             actionbar.hide();
         }
-        //通过按钮跳转到发布消息界面
+        //通过按钮跳转到发布消息界面..
+        ((Button) findViewById(R.id.commodity_button)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((CommodityView)findViewById(R.id.commodity_view)).setVisibility(View.VISIBLE);
+            }
+        });
+        //
         Button person_history_button = (Button) findViewById(R.id.person_history_button);
         person_history_button.setOnClickListener(new View.OnClickListener() {
             @Override

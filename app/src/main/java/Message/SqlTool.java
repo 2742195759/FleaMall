@@ -77,7 +77,7 @@ public class SqlTool {
 		return ret ; 
 	}
 	///delete
-	static public String genUpdateRow(String table , String[] set_id , Object[] set_val , String[] where_id , String[] where_val) {
+	static public String genUpdateRow(String table , String[] set_id , Object[] set_val , String[] where_id , Object[] where_val) {
 		String set = genEqualStatement(set_id , set_val , ",") ; 
 		String where = genEqualStatement(where_id , where_val , "and") ; 
 		return String.format("update %s set %s where %s", table , set , where) ;

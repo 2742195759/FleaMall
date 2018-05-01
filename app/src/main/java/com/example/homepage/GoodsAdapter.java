@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by xuan on 2018/3/13.
+ * Update by Xiongkun on 2018/4/28
  */
 
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> {
@@ -50,7 +51,8 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder,int position) {
         Goods goods = mGoodsList.get(position);
-        holder.goodsImage.setImageResource(R.drawable.g1);
+        if(goods.head_photo == null) holder.goodsImage.setImageResource(R.drawable.g1);
+        else                         holder.goodsImage.setImageBitmap(goods.head_photo);
         holder.goodsTitle.setText(goods.title);
         if(goods.price!=null) holder.goodsPrice.setText(goods.price+"￥");
         else holder.goodsPrice.setText("联系商议") ;

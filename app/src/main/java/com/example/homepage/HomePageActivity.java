@@ -22,10 +22,7 @@ public class HomePageActivity extends AppCompatActivity {
     }
     protected void onStart() {
         super.onStart() ;
-        /*
-            使用Msg请求Goods并且填入属性.必要时可以获取图片.其实应该使用异步来实现,
-            使用一个后台任务,一直在处理,然后把结果填入list中就可以了,因为,RecycleView会利用后台数据开始绑定.
-         */
+
         //if(first_start) {refleshGoods(); first_start = false;}
     }
 }

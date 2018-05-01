@@ -1,5 +1,7 @@
 package com.example.homepage;
 
+import android.graphics.Bitmap;
+
 import Respond.RspMultiRow ;
 import Respond.RspSingleRow ;
 /**
@@ -9,14 +11,13 @@ import Respond.RspSingleRow ;
 public class Goods {
     public String cno ;
     public String title;
-    public int head_photo; /// head photo
+    public Bitmap head_photo = null; /// head photo
     public String price  ;
     public String detail ;
     public String addr   ;
-    public Goods(String in_cno , String tname, int timageId , String in_price , String in_detail , String in_addr) {
+    public Goods(String in_cno , String tname , String in_price , String in_detail , String in_addr) {
         this.cno = in_cno ;
         this.title = tname;
-        this.head_photo = timageId;
         this.price = in_price ;
         this.detail = in_detail ;
         this.addr = in_addr ;

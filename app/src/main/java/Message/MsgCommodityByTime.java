@@ -34,7 +34,7 @@ public class MsgCommodityByTime extends Message{
 						+ "where Commodity.cno = Selling.cno "
 						+ "order by flea_date desc LIMIT %d OFFSET %d", 
 				page_num , page_start)) ;
-		rmr.AddMultiRow(rs ,"sno" , "cno" , "detail" , "brief" , "price" , "addr" , "head_photo" , "flea_date");
+		rmr.AddMultiRow(rs ,"sno" , "cno" , "detail" , "brief" , "price" , "addr" , "flea_date");
 		return rmr ; 
 	}
 
