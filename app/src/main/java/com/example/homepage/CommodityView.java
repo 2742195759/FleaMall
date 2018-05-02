@@ -47,7 +47,7 @@ public class CommodityView extends LinearLayout {
     }
     /*
         一定要是Respond是MultiRow_commodity的Msg
-     */
+    */
     public CommodityView setMessage(Message msg) {
         this.msg = msg ;
         return this ;
@@ -88,9 +88,9 @@ public class CommodityView extends LinearLayout {
                                 recyclerAdapter.notifyItemChanged(cnt); //更新控件的图片.
                             }
                             else {
-                                new SweetAlertDialog(CONTEXT, SweetAlertDialog.ERROR_TYPE)
-                                        .setTitleText("获取商品图片失败,下拉刷新重试")
-                                        .show();
+//                                new SweetAlertDialog(CONTEXT, SweetAlertDialog.ERROR_TYPE)
+//                                        .setTitleText("获取商品图片失败,下拉刷新重试")
+//                                        .show();
                             }
                         }
                     }.excute();

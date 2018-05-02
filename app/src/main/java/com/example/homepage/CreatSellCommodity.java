@@ -38,14 +38,18 @@ public class CreatSellCommodity extends AppCompatActivity {
     ImageView img ;
     public static final int TAKE_PHOTO = 1;
     public static final int CHOOSE_PHOTO = 2;
-    private ImageView picture;
-    private Uri imageUri;
+    private ImageView picture ;
+    private Uri imageUri ;
     EditText information ;
     EditText price ;
     EditText address ;
+    Goods goods = null ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState) ;
+        if(getIntent().getExtras().get("Commodity")!=null) {
+
+        }
         setContentView(R.layout.creat_sell_commodity_layout);
         Button ConfirmButton = (Button) findViewById(R.id.issue);
         information =  (EditText) findViewById(R.id.information);

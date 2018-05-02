@@ -15,8 +15,10 @@ public abstract class MessageAsync <rst> {
         gms = ms;
     }
     int cnt_msg = 0 ;
-    public void excute() {
+    public void reset() {
         cnt_msg = 0 ;
+    }
+    public void excute() {
         AsyncTask task = new AsyncTask<Message , Void , rst> () {
             @Override
             protected rst doInBackground(Message ... paras) {
