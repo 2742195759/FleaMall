@@ -1,6 +1,5 @@
 package com.example.homepage;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.example.homepage.View.BottomTitleLayout;
+import com.example.homepage.View.CommodityView;
 
 import Message.* ;
-import Respond.* ;
 
 public class MineActivity extends AppCompatActivity {
     Button headPortraitButton;
@@ -75,6 +73,7 @@ public class MineActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        ((BottomTitleLayout)findViewById(R.id.bottomtitle)).redrawPicture(3);
         //点击昵称按钮修改昵称
         nickButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,23 +94,6 @@ public class MineActivity extends AppCompatActivity {
             }
         }
     }
-
-    //登陆界面销毁后此活动重启调用
-   /* @Override
-    protected  void onActivityResult(int requestCode,int resultCode,Intent data) {
-        switch (requestCode) {
-            case 1:
-                if(resultCode == RESULT_OK) {
-                    //获得用户登录后的学号
-                    user_sno = data.getStringExtra("user_sno");
-                    //将用户学号传到更改昵称的活动
-                    Intent intentnick = new Intent(MineActivity.this,ChangeNickActivity.class);
-                    intentnick.putExtra("nick",user_sno);
-                    nickButton.setText(user_sno);
-                }break;
-            default:
-        }
-    }*/
 }
 
 

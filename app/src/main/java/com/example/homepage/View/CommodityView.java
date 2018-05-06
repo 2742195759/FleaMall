@@ -1,13 +1,21 @@
-package com.example.homepage;
+package com.example.homepage.View;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
-import Respond.RspImage;
+import com.example.homepage.Goods;
+import com.example.homepage.GoodsAdapter;
+import com.example.homepage.MessageAsync;
+import com.example.homepage.R;
+import com.example.homepage.Store.Cache;
+import com.example.homepage.Store.CacheCallBack;
+import com.example.homepage.Store.CacheData;
+import com.example.homepage.Store.CacheKeyPicture;
+import com.example.homepage.Store.Picture;
+
 import Respond.RspMultiRow;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout ;
@@ -56,6 +64,7 @@ public class CommodityView extends LinearLayout {
         使用Msg请求Goods并且填入属性.必要时可以获取图片.其实应该使用异步来实现,
         使用一个后台任务,一直在处理,然后把结果填入list中就可以了,因为,RecycleView会利用后台数据开始绑定.
     */
+    private int tmpi ;
     private void refleshGoods() {
         new MessageAsync<RspMultiRow>(msg) {
             @Override
@@ -73,27 +82,21 @@ public class CommodityView extends LinearLayout {
                         }
                     }
                     setRecycleViewContent() ;
-                    Message[] msg_img = new Message[goodsList.size()] ;
                     for(int i=0;i<goodsList.size();++i) {
-                        msg_img[i] = new MsgImageFetch(Account.account , Account.password ,
-                                goodsList.get(i).cno , 0) ;
+                        tmpi = i ;
+                        Cache.getCacheData(new CacheKeyPicture().setCno(
+                                goodsList.get(i).cno).setNum(0), new CacheCallBack() {
+                                    @Override
+                                    public void callback(CacheData data) {
+                                        Picture picture = (Picture) data ;
+                                        if(picture != null) {
+                                            goodsList.get(tmpi).head_photo = picture.bitmap ;
+                                            recyclerAdapter.notifyItemChanged(tmpi); //更新控件的图片.
+                                        }
+                                    }
+                                }
+                        ) ;
                     }
-
-                    new MessageAsync<RspImage>(msg_img) {
-                        @Override
-                        public void handle_result(RspImage img , int cnt){
-                            if(img!=null && img.getState().equals("success")) {
-                                goodsList.get(cnt).head_photo = BitmapFactory.decodeByteArray(img.data,
-                                        0, img.data.length);
-                                recyclerAdapter.notifyItemChanged(cnt); //更新控件的图片.
-                            }
-                            else {
-//                                new SweetAlertDialog(CONTEXT, SweetAlertDialog.ERROR_TYPE)
-//                                        .setTitleText("获取商品图片失败,下拉刷新重试")
-//                                        .show();
-                            }
-                        }
-                    }.excute();
                 }
                 else    {
                     new SweetAlertDialog(CONTEXT, SweetAlertDialog.ERROR_TYPE)
@@ -102,7 +105,7 @@ public class CommodityView extends LinearLayout {
                 }
                 swipe.setRefreshing(false);
             }
-        }.excute() ;
+        }.excute();
     }
 
 }

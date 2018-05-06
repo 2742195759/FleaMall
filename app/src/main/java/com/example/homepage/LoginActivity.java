@@ -24,6 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editText1;
     private EditText editText2;
     private LocalBroadcastManager localBroadcastManager;
+
+
+
     //private LocalReceiver localReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,6 @@
 package com.example.homepage;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.util.List;
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> {
     private List<Goods> mGoodsList;
     static class ViewHolder extends RecyclerView.ViewHolder {
+        String cno = null ;
         ImageView goodsImage;
         TextView goodsPrice ;
         TextView goodsTitle ;
@@ -41,9 +43,9 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> 
         holder.goodsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int position = holder.getAdapterPosition();
-                //Goods goods = mGoodsList.get(position);
-                //Toast.makeText(v.getContext(),"you clicked image"+goods.getName(),Toast.LENGTH_SHORT).show();
+                Intent intend = new Intent(v.getContext() , CreatSellCommodity.class) ;
+                intend.putExtra("commodity" , holder.cno) ;
+                v.getContext().startActivity(intend) ;
             }
         });
         return holder;
@@ -54,6 +56,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> 
         if(goods.head_photo == null) holder.goodsImage.setImageResource(R.drawable.g1);
         else                         holder.goodsImage.setImageBitmap(goods.head_photo);
         holder.goodsTitle.setText(goods.title);
+        holder.cno = goods.cno ;
         if(goods.price!=null) holder.goodsPrice.setText(goods.price+"￥");
         else holder.goodsPrice.setText("联系商议") ;
     }

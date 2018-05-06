@@ -4,12 +4,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.homepage.View.BottomTitleLayout;
+import com.example.homepage.View.CommodityView;
+import com.example.homepage.View.Permission;
+
 import Message.MsgCommodityByTime;
 
 
 public class HomePageActivity extends AppCompatActivity {
     //private BottomTitleLayout bottomTitleLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,10 +22,10 @@ public class HomePageActivity extends AppCompatActivity {
         if(actionbar!=null) {
             actionbar.hide();
         }
+        Permission.verifyStoragePermissions(this) ;
     }
     protected void onStart() {
         super.onStart() ;
-
-        //if(first_start) {refleshGoods(); first_start = false;}
+        ((BottomTitleLayout)findViewById(R.id.bottomtitle)).redrawPicture(0);
     }
 }

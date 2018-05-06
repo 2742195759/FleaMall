@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentFrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.example.homepage.SearchLayout
-        app:layout_widthPercent="100%"
-        app:layout_heightPercent="8%"
+    <com.example.homepage.View.SearchLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_gravity="top"
+        android:layout_weight="0"
         />
 
-    <com.example.homepage.CommodityView
-        app:layout_widthPercent="100%"
-        app:layout_heightPercent="84%"
+    <com.example.homepage.View.CommodityView
         android:id="@+id/commodity_view"
-        android:layout_gravity="center_vertical">
-    </com.example.homepage.CommodityView>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"></com.example.homepage.View.CommodityView>
 
-    <com.example.homepage.BottomTitleLayout
-        android:id="@+id/homepage_bottomtitle"
+    <com.example.homepage.View.BottomTitleLayout
+        android:id="@+id/bottomtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:layout_widthPercent="100%"
-        app:layout_heightPercent="8%"
-        />
-</android.support.percent.PercentFrameLayout>
+        android:layout_weight="0" />
+</LinearLayout>

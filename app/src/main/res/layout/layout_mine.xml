@@ -126,7 +126,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/commodity_button" />
 
-    <com.example.homepage.CommodityView
+    <com.example.homepage.View.CommodityView
         android:id="@+id/commodity_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -137,16 +137,15 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/mine_bottomtitle"
+        app:layout_constraintBottom_toTopOf="@+id/bottomtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/person_history_button" />
 
-    <com.example.homepage.BottomTitleLayout
-        android:id="@+id/mine_bottomtitle"
-        android:layout_width="380dp"
-        android:layout_height="19dp"
-        android:layout_marginBottom="10dp"
+    <com.example.homepage.View.BottomTitleLayout
+        android:id="@+id/bottomtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="2dp" />
 

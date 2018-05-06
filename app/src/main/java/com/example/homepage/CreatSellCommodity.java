@@ -24,18 +24,28 @@ import android.provider.DocumentsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+
+import com.example.homepage.Store.Cache;
+import com.example.homepage.Store.CacheCallBack;
+import com.example.homepage.Store.CacheData;
+import com.example.homepage.Store.CacheKey;
+import com.example.homepage.Store.CacheKeyCommodity;
+import com.example.homepage.Store.Commodity;
+import com.example.homepage.View.BottomTitleLayout;
+import com.example.homepage.View.PictureShowView;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import Message.MsgCommodityCreateSell;
 import Respond.Respond;
+import com.example.homepage.View.PictureShowView ;
 
 
 public class CreatSellCommodity extends AppCompatActivity {
-
-    static final int REQUEST_IMAGE_CAPTURE = 1 ;
     Activity activity = this ;
-    ImageView img ;
+    PictureShowView img ;
+    static final int REQUEST_IMAGE_CAPTURE = 1 ;
     public static final int TAKE_PHOTO = 1;
     public static final int CHOOSE_PHOTO = 2;
     private ImageView picture ;
@@ -47,14 +57,26 @@ public class CreatSellCommodity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState) ;
-        if(getIntent().getExtras().get("Commodity")!=null) {
-
-        }
         setContentView(R.layout.creat_sell_commodity_layout);
-        Button ConfirmButton = (Button) findViewById(R.id.issue);
         information =  (EditText) findViewById(R.id.information);
         price =  (EditText) findViewById(R.id.price);
         address =  (EditText) findViewById(R.id.address);
+//用户选择图片按钮，会下拉出菜单选择相机或相册
+        //Button tack_picture = (Button) findViewById(R.id.take_picture);
+
+        if(getIntent().getExtras() != null) {
+            String cno = (String)getIntent().getExtras().get("commodity");
+            Cache.getCacheData(new CacheKeyCommodity().setCno(cno), new CacheCallBack() {
+                    @Override
+                public void callback(CacheData data) {
+                    Commodity commodity = (Commodity) data ;
+                    information.setText(commodity.title);
+                    price.setText(commodity.price);
+                }
+            }) ;
+        }
+
+        Button ConfirmButton = (Button) findViewById(R.id.issue);
         //用户发布信息确定按钮
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
 
@@ -82,59 +104,14 @@ public class CreatSellCommodity extends AppCompatActivity {
             }
         });
 
-
-        //用户选择图片按钮，会下拉出菜单选择相机或相册
-        Button tack_picture = (Button) findViewById(R.id.take_picture);
-        tack_picture.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-
-            }
-        });
-
-        //每一次setContentView都会重新绑定id -> view , 所以一定之可以弄一次.
-        //setContentView(R.layout.creat_sell_commodity_layout);
-        Button button = (Button) findViewById(R.id.photograph) ;
-        img = (ImageView) findViewById(R.id.phtot_commodity) ;
-        button.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view){
-                if(ContextCompat.checkSelfPermission(activity , Manifest.permission.CAMERA) !=
-                        PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(activity,
-                            new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
-
-                }else {
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                    }
-                }
-            }
-        });
-
-
-        Button chooseFromAlbum = (Button) findViewById(R.id.choose_from_album);
-        chooseFromAlbum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(CreatSellCommodity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CreatSellCommodity.this, new String[]{ Manifest.permission. WRITE_EXTERNAL_STORAGE }, 1);
-                } else {
-                    openAlbum();
-                }
-            }
-        });
+        img = (PictureShowView) findViewById(R.id.picture_show_list) ;
+        img.setActivity(this);
     }
 
     @Override
     protected void onActivityResult(int req , int res , Intent data) {
         if (req == REQUEST_IMAGE_CAPTURE && res == RESULT_OK) {
-            Bundle extras = data.getExtras() ;
-            Bitmap image = (Bitmap) extras.get("data") ;
-
-            img.setImageBitmap(image);
+            img.onTakePicture();
         }
     }
 
@@ -148,16 +125,6 @@ public class CreatSellCommodity extends AppCompatActivity {
                 }
             }
         }
-
-
-
-}
-
-
-    private void openAlbum() {
-        Intent intent = new Intent("android.intent.action.GET_CONTENT");
-        intent.setType("image/*");
-        startActivityForResult(intent, CHOOSE_PHOTO); // 打开相册
     }
 
     @TargetApi(19)
@@ -212,6 +179,10 @@ public class CreatSellCommodity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
         }
+    }
+    protected void onStart() {
+        super.onStart() ;
+        ((BottomTitleLayout)findViewById(R.id.bottomtitle)).redrawPicture(1);
     }
 
 }
