@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,8 +41,10 @@ import java.util.Date;
 /**
  * Created by Administrator on 2018/5/3.
  */
+
 class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.PictureHolder> {
     static int MaxPicNum = 6 ;
+
     public ArrayList<Bitmap> pictures = new ArrayList<Bitmap>() ;
     public int actual_size = 0 ;
     public AppCompatActivity activity = null;
@@ -135,7 +138,11 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
                     }
                 }
                 else{
-                    /// Show the detail of photograph ;
+                        Bitmap picture = pictures.get(x);
+                        Intent intend = new Intent(v.getContext(),ShowLargePicture.class);
+                        intend.putExtra("picture" , picture) ;
+                        v.getContext().startActivity(intend) ;
+
                 }
             }
         });
