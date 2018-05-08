@@ -54,28 +54,27 @@ public class MsgCommodityCreateSell extends Message{
 		try {
 			Statement stm = conn.createStatement() ;
 			//stm.executeQuery("begin") ; 
-			String[] vals = {s[6] , s[1] , s[2] , s[3] , s[4]} ; 
+			String[] vals = {s[6] , s[1] , s[2] , s[3] , s[4]} ;
 			String[] cols = {"cno" , "detail" , "brief" , "price" , "addr"} ;
-			String sql ; 
-			boolean is_create = false ; 
+			String sql ;
+			boolean is_create = false ;
 			if(vals[0] == null) {
-				String cno = UUID.randomUUID().toString() ; 
+				String cno = UUID.randomUUID().toString() ;
 				vals[0] = cno ;
-				sql = SqlTool.genInsert("Commodity", cols , vals) ; 
+				sql = SqlTool.genInsert("Commodity", cols , vals) ;
 				is_create = true ;
 			}
 			else {
-				String[] w_id = {"cno"} ; 
-				String[] w_val = {vals[0]} ; 
-				sql = SqlTool.genUpdateRow("Commodity", cols , vals, w_id , w_val) ; 
+				String[] w_id = {"cno"} ;
+				String[] w_val = {vals[0]} ;
+				sql = SqlTool.genUpdateRow("Commodity", cols , vals, w_id , w_val) ;
 			}
 			int r = stm.executeUpdate(sql) ;
-			if(r == 0) rsp.setState("[Warning]:\nNo Row Have Create , Please Check Your Parameters\n");
-			rsp.setExtra("" + r);
 			if(is_create) {
-				String sell_sql = String.format("insert into Selling (cno , sno , flea_date) values (\'%s\' , \'%s\' , now())", vals[0] , s[0]) ; 
-				stm.executeUpdate(sell_sql) ; 
+				String sell_sql = String.format("insert into Selling (cno , sno , flea_date) values (\'%s\' , \'%s\' , now())", vals[0] , s[0]) ;
+				stm.executeUpdate(sell_sql) ;
 			}
+			rsp.setExtra(vals[0]);
 		}
 		catch(Exception e) {
 			conn.rollback();

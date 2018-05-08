@@ -30,9 +30,9 @@ public class MsgImageFetch extends Message{
 		RspImage img = new RspImage(Message.getPhotePath(cno , pno) , pno) ;
 		Statement stm = conn.createStatement() ; 
 		if(pno == 0) {
-		ResultSet rs = stm.executeQuery(String.format("select photo_num as size from Commodity "
-				+ "where cno = %s" , cno)) ; rs.next() ; 
-		img.size = rs.getInt("size") ; 
+			ResultSet rs = stm.executeQuery(String.format("select photo_num as size from Commodity "
+					+ "where cno = \'%s\'" , cno)) ; rs.next() ;
+			img.size = rs.getInt("size") ;
 		}
 		return img ; 
 	}

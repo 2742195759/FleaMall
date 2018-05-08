@@ -1,5 +1,6 @@
 package com.example.homepage.View;
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
@@ -45,7 +46,8 @@ public class CommodityView extends LinearLayout {
         });
     }
     private void setRecycleView() {
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        //StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        GridLayoutManager layoutManager = new GridLayoutManager(CONTEXT , 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerAdapter = new GoodsAdapter(goodsList);
         recyclerView.setAdapter(recyclerAdapter);
@@ -83,9 +85,10 @@ public class CommodityView extends LinearLayout {
                     }
                     setRecycleViewContent() ;
                     for(int i=0;i<goodsList.size();++i) {
-                        tmpi = i ;
+                        final int _tmpi = i ;
                         Cache.getCacheData(new CacheKeyPicture().setCno(
                                 goodsList.get(i).cno).setNum(0), new CacheCallBack() {
+                                    int tmpi = _tmpi ;
                                     @Override
                                     public void callback(CacheData data) {
                                         Picture picture = (Picture) data ;

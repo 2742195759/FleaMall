@@ -38,7 +38,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import Message.MsgCommodityCreateSell;
-import Respond.Respond;
+import Message.MsgImageSave;
+import Respond.*;
 import com.example.homepage.View.PictureShowView ;
 
 
@@ -54,13 +55,14 @@ public class CreatSellCommodity extends AppCompatActivity {
     EditText price ;
     EditText address ;
     Goods goods = null ;
+    Commodity commodity = null ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState) ;
         setContentView(R.layout.creat_sell_commodity_layout);
         information =  (EditText) findViewById(R.id.information);
         price =  (EditText) findViewById(R.id.price);
-        address =  (EditText) findViewById(R.id.address);
+        address =  (EditText) findViewById(R.id.address) ;
 //用户选择图片按钮，会下拉出菜单选择相机或相册
         //Button tack_picture = (Button) findViewById(R.id.take_picture);
 
@@ -69,38 +71,80 @@ public class CreatSellCommodity extends AppCompatActivity {
             Cache.getCacheData(new CacheKeyCommodity().setCno(cno), new CacheCallBack() {
                     @Override
                 public void callback(CacheData data) {
-                    Commodity commodity = (Commodity) data ;
+                    commodity = (Commodity) data ;
                     information.setText(commodity.title);
                     price.setText(commodity.price);
-                }
+                    }
             }) ;
+
         }
 
         Button ConfirmButton = (Button) findViewById(R.id.issue);
         //用户发布信息确定按钮
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
-
+            static final int ERROR_PRICE_FORMAT = -1 ;
+            static final int ERROR_INFORMATION_NULL = -2 ;
+            static final int ERROR_IMAGE_NUMBER = -3 ;
             @Override
             public void onClick(View v) {
-                String Information = information.getText().toString();
-                String Price = price.getText().toString();
-                String Address = address.getText().toString();
-                new MessageAsync<Respond>( new MsgCommodityCreateSell(Account.account,null,
-                        Information,Price,Address,Account.password,null )) {
-                    @Override
-                    public void handle_result( Respond result , int cnt){
-                        if(result.getState().equals("success") )
-                        {
-                            Toast.makeText(CreatSellCommodity.this,"发布成功",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(CreatSellCommodity.this,HomePageActivity.class);
-                            startActivity(intent);
-                        }
-                        else
-                        {
-                            Toast.makeText(CreatSellCommodity.this,"发布失败",Toast.LENGTH_SHORT).show();
-                        }
+                int error = 0 ;
+                do {
+                    String Information = information.getText().toString();
+                    String Price = price.getText().toString();
+                    String Address = address.getText().toString();
+                    if (Price.equals("") || Information.equals("") || Address.equals("")) {
+                        error = ERROR_INFORMATION_NULL ; break ;
                     }
-                }.excute();
+                    else if(img.getPictureNumber() == 0) {
+                        error = ERROR_IMAGE_NUMBER ; break ;
+                    }
+                    else {
+                        try {
+                            int k = Integer.parseInt(Price);
+                        } catch (NumberFormatException e) {
+                            error = ERROR_PRICE_FORMAT;
+                            break;
+                        }
+                        new MessageAsync<Respond>(new MsgCommodityCreateSell(Account.account, null,
+                                Information, Price, Address, Account.password, null)) {
+                            @Override
+                            public void handle_result(Respond result, int cnt) {
+                                if (result.getState().equals("success")) {
+                                    Toast.makeText(CreatSellCommodity.this, "发布成功", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(CreatSellCommodity.this, HomePageActivity.class);
+                                    startActivity(intent);
+                                    //RspImage[] rsp_image= new RspImage[img.getPictureNumber()] ;
+                                    MsgImageSave msgSave = new MsgImageSave(Account.account ,
+                                            Account.password , result.getExtra()) ;
+                                    for(int i=0;i<img.getPictureNumber();++i) {
+                                        msgSave.addImage(new RspImage(img.getPictureByteArray(i)
+                                        , -1)) ; /// substitute all the image ;  Not provided change order faculty
+                                    }
+                                    new MessageAsync<Respond>(msgSave){
+                                        @Override
+                                        public void handle_result(Respond result, int cnt) {
+                                            if(!result.getState().equals("success")) {
+                                                Toast.makeText(CreatSellCommodity.this, "图片发布失败", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                        }
+                                    }.excute();
+                                } else {
+                                    Toast.makeText(CreatSellCommodity.this, "发布失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }.excute();
+                    }
+                }while(false) ;
+                /// Error Deal
+                switch (error) {
+                    case ERROR_INFORMATION_NULL :
+                        Toast.makeText(CreatSellCommodity.this, "发布失败:请填写必填字段", Toast.LENGTH_SHORT).show(); break ;
+                    case ERROR_PRICE_FORMAT :
+                        Toast.makeText(CreatSellCommodity.this, "发布失败:填写正确的Price，必须是数字", Toast.LENGTH_SHORT).show(); break ;
+                    case ERROR_IMAGE_NUMBER :
+                        Toast.makeText(CreatSellCommodity.this, "发布失败:必须要一张图片", Toast.LENGTH_SHORT).show(); break ;
+                }
             }
         });
 

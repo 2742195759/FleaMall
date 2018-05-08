@@ -15,7 +15,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -25,14 +24,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.homepage.CreatSellCommodity;
 import com.example.homepage.R;
+import com.example.homepage.Store.Picture;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -205,12 +203,28 @@ public class PictureShowView extends LinearLayout {
     public void setActivity(AppCompatActivity activity) {
         adapter.activity = activity ;
     }
+
     public void onTakePicture() {
         //adapter.galleryAddPic();
         try {
-            addPicture(BitmapFactory.decodeStream(new FileInputStream(adapter.mCurrentPhotoPath))) ;
+            Bitmap bitmap = Picture.getBitmapFromPath(adapter.mCurrentPhotoPath, width, height) ;
+            Toast.makeText(adapter.activity , "图片大小:"+bitmap.getByteCount()/1024+"kb" ,Toast.LENGTH_SHORT).show(); ;
+            addPicture(bitmap) ;
         } catch (FileNotFoundException e) {
             Toast.makeText(adapter.activity , "没有找到文件",Toast.LENGTH_SHORT).show(); ;
+        } catch (IOException e) {
+            Toast.makeText(adapter.activity , "旋转失败",Toast.LENGTH_SHORT).show();
         }
+    }
+    public int getPictureNumber() {
+        return adapter.actual_size ;
+    }
+    public byte[] getPictureByteArray(int index) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        adapter.pictures.get(index).compress(Bitmap.CompressFormat.JPEG ,10 , baos) ;
+        return baos.toByteArray() ;
+    }
+    public int getPictureOriginOrder(int index) {
+        return -1 ;
     }
 }
