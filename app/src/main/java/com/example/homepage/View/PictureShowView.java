@@ -1,4 +1,4 @@
-package com.example.homepage.View;
+﻿package com.example.homepage.View;
 
 import android.Manifest;
 import android.content.Context;
@@ -31,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,8 +39,10 @@ import java.util.Date;
 /**
  * Created by Administrator on 2018/5/3.
  */
+
 class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.PictureHolder> {
     static int MaxPicNum = 6 ;
+
     public ArrayList<Bitmap> pictures = new ArrayList<Bitmap>() ;
     public int actual_size = 0 ;
     public AppCompatActivity activity = null;
@@ -133,7 +136,11 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
                     }
                 }
                 else{
-                    /// Show the detail of photograph ;
+                        Bitmap picture = pictures.get(x);
+                        Intent intend = new Intent(v.getContext(),ShowLargePicture.class);
+                        intend.putExtra("picture" , picture) ;
+                        v.getContext().startActivity(intend) ;
+
                 }
             }
         });
