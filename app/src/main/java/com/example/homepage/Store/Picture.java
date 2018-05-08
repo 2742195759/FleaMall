@@ -1,5 +1,6 @@
 package com.example.homepage.Store;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,6 +25,37 @@ import Respond.RspImage;
  */
 
 public class Picture extends CacheData{
+    public abstract class FetchBitmap {
+        public abstract Bitmap fetchBitmap(BitmapFactory.Options options) ;
+    }
+    public class FetchBitmapFromFile extends FetchBitmap {
+        String file_path ;
+        public FetchBitmapFromFile(String path) {
+            file_path = path ;
+        }
+        @Override
+        public Bitmap fetchBitmap(BitmapFactory.Options options) {
+            Bitmap bitmap = BitmapFactory.decodeFile(file_path , options) ;
+            if(options.inJustDecodeBounds == false) {
+                int degree = readPictureDegree(file_path) ;
+                return rotaingImageView(degree , bitmap);
+            }
+            else return bitmap ;
+        }
+    }
+    public class FetchBitmapFromRes extends FetchBitmap {
+        int resid ;
+        Resources res ;
+        public FetchBitmapFromRes(Resources res , int id) {
+            resid = id ; this.res = res ;
+        }
+        @Override
+        public Bitmap fetchBitmap(BitmapFactory.Options options) {
+            return BitmapFactory.decodeResource(res , resid , options) ;
+        }
+    }
+
+
     Picture THIS = this ;
     public static Bitmap rotaingImageView(int angle, Bitmap bitmap) {
         Bitmap returnBm = null;
@@ -66,12 +99,7 @@ public class Picture extends CacheData{
         }
         return degree;
     }
-    public static Bitmap getBitmapFromPath(String path, int width, int height) throws FileNotFoundException {
-        int degree = readPictureDegree(path) ;
-        BitmapFactory.Options
-        return rotaingImageView(degree , BitmapFactory.decodeStream(new FileInputStream(path)));
-    }
-    private File createImageFile() throws IOException {
+    private String createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -83,17 +111,25 @@ public class Picture extends CacheData{
                 storageDir      /* directory */
         );
         // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
+        return image.getAbsolutePath();
     }
-    public String mCurrentPhotoPath ;
+
     // public Bitmap bitmap ; /// only restore the mCurrentP洪洞Path ;
     public int Max ;
-    String cno ; int num ;
+    String cno = null ; int num ;
 
-    Picture (String cno , int num) {
+    public FetchBitmap fetch = null ;
+
+    public Picture (String path) {
+        fetch = new FetchBitmapFromFile(path) ;
+    }
+    public Picture (String cno , int num) {
         this.cno = cno ; this.num = num ;
     }
+    public Picture (Resources res , int id) {
+        fetch = new FetchBitmapFromRes(res , id) ;
+    }
+
     @Override
     public void getFromDataBase(final CacheCallBack callback) {
         new MessageAsync<RspImage>(new MsgImageFetch(Account.account , Account.password ,
@@ -105,8 +141,9 @@ public class Picture extends CacheData{
                     Max = result.getImageNum() ;
                     /// restore the jpg picture in the cache ;
                     try {
-                        createImageFile(); /// 获得mCurrentPhotoPath
-                        result.saveImage(mCurrentPhotoPath); result.data = null ;
+                        String path = createImageFile(); /// 获得mCurrentPhotoPath
+                        fetch = new FetchBitmapFromFile(path) ;
+                        result.saveImage(path); result.data = null ;
                         callback.callback(THIS);
                     }
                     catch (Exception e) {
@@ -126,13 +163,30 @@ public class Picture extends CacheData{
         return true;
     }
 
-    public boolean getBitmapInBound(int width , int height) {
-        if(mCurrentPhotoPath == null) {
-            return false ;
+    public Bitmap getBitmapInBound(int width , int height) {
+        if(fetch == null) {
+            return null ;
         }
-        getBitmapFromPath(mCurrentPhotoPath , width , height) ;
+        BitmapFactory.Options options = new BitmapFactory.Options() ;
+        if(width == -1 && height == -1) {
+            return fetch.fetchBitmap(options) ;
+        }
+        Bitmap bitmap ;
+        options.inJustDecodeBounds = true ;
+        bitmap = fetch.fetchBitmap(options) ;
+        //if(null == bitmap) return bitmap ;
+        int imgw = options.outWidth ; int imgh = options.outHeight ;
+        options.inSampleSize = 1 ;
+        int tmp = Math.min(imgw/width , imgh/height) ; /// 由于算法会自动适应,所以不用担心.
+        while(2 * options.inSampleSize < tmp) {
+            options.inSampleSize *= 2 ;
+        }
+        options.inJustDecodeBounds  = false ;
+        options.outHeight = 0 ; options.outWidth = 0 ;
+        return fetch.fetchBitmap(options) ;
+
     }
-    public boolean getBitmapInBound() {
-        getBitmapInBound(-1 , -1) ;
+    public Bitmap getBitmapInBound() {
+        return getBitmapInBound(-1 , -1) ;
     }
 }

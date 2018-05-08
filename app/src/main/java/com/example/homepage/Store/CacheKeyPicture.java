@@ -7,7 +7,6 @@ import java.util.HashMap;
  */
 
 public class CacheKeyPicture extends CacheKey {
-    static HashMap<CacheKeyPicture , Picture> table = new HashMap<CacheKeyPicture , Picture>();
     public String cno ;
     public int num    ;
     @Override
@@ -18,7 +17,7 @@ public class CacheKeyPicture extends CacheKey {
     @Override
     public CacheData newCacheData() {
         Picture data = new Picture(cno , num) ;
-        table.put(this , data) ;
+        insertCacheData(data);
         return data ;
     }
 

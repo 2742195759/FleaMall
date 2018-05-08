@@ -2,19 +2,18 @@ package com.example.homepage.View;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
-import com.example.homepage.Goods;
-import com.example.homepage.GoodsAdapter;
 import com.example.homepage.MessageAsync;
 import com.example.homepage.R;
 import com.example.homepage.Store.Cache;
 import com.example.homepage.Store.CacheCallBack;
 import com.example.homepage.Store.CacheData;
+import com.example.homepage.Store.CacheKeyCommodity;
 import com.example.homepage.Store.CacheKeyPicture;
+import com.example.homepage.Store.Commodity;
 import com.example.homepage.Store.Picture;
 
 import Respond.RspMultiRow;
@@ -30,14 +29,14 @@ public class CommodityView extends LinearLayout {
     GoodsAdapter recyclerAdapter = null ;
     RecyclerView recyclerView = null ;
     WaveSwipeRefreshLayout swipe = null ;
-    private List<Goods> goodsList = new ArrayList<>();
+    private List<Commodity> goodsList = new ArrayList<Commodity>();
     public CommodityView (final Context context, AttributeSet attrs) {
         super(context , attrs) ;
         LayoutInflater.from(context).inflate(R.layout.layout_commodity_view,this);
-        recyclerView = this.findViewById(R.id.recyclerview) ;
+        recyclerView = (RecyclerView) this.findViewById(R.id.recyclerview) ;
         setRecycleView();
         CONTEXT = context ;
-        swipe = this.findViewById(R.id.main_swipe) ;
+        swipe = (WaveSwipeRefreshLayout) this.findViewById(R.id.main_swipe) ;
         swipe.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener(){
             @Override
             public void onRefresh() {
@@ -46,7 +45,6 @@ public class CommodityView extends LinearLayout {
         });
     }
     private void setRecycleView() {
-        //StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         GridLayoutManager layoutManager = new GridLayoutManager(CONTEXT , 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerAdapter = new GoodsAdapter(goodsList);
@@ -70,38 +68,40 @@ public class CommodityView extends LinearLayout {
     private void refleshGoods() {
         new MessageAsync<RspMultiRow>(msg) {
             @Override
-            public void handle_result(RspMultiRow result , int cnt){
-                if(result != null && result.getState().equals("success")) {
+            public void handle_result(RspMultiRow result , int cnt) {
+                if (result != null && result.getState().equals("success")) {
                     goodsList.clear();
-                    for(int i=0;i<result.size();++i) {
-                        Goods good = Goods.getGoodsFromRspSingleRow(result.getSingleRow(i)) ;
-                        if(good != null) goodsList.add(good);
-                        if(good == null) {
-                            new SweetAlertDialog(CONTEXT, SweetAlertDialog.ERROR_TYPE)
-                                    .setTitleText("商品解析失败")
-                                    .show();
-                            break ;
-                        }
+                    for (int i = 0; i < result.size(); ++i) {
+                        Commodity commodity = new Commodity(null);
+                        commodity.getAttributeFromSingleRow(result.getSingleRow(i));
+                        new CacheKeyCommodity().setCno(commodity.cno).insertCacheData(commodity);
+                        ///添加进入缓存.
+                        goodsList.add(commodity);
+//                        new SweetAlertDialog(CONTEXT, SweetAlertDialog.ERROR_TYPE)
+//                                .setTitleText("商品解析失败")
+//                                .show();
+//                        break ;
                     }
-                    setRecycleViewContent() ;
-                    for(int i=0;i<goodsList.size();++i) {
-                        final int _tmpi = i ;
+                    setRecycleViewContent();
+                    for (int i = 0; i < goodsList.size(); ++i) {
+                        final int _tmpi = i;
                         Cache.getCacheData(new CacheKeyPicture().setCno(
                                 goodsList.get(i).cno).setNum(0), new CacheCallBack() {
-                                    int tmpi = _tmpi ;
+                                    int tmpi = _tmpi;
+
                                     @Override
                                     public void callback(CacheData data) {
-                                        Picture picture = (Picture) data ;
-                                        if(picture != null) {
-                                            goodsList.get(tmpi).head_photo = picture.bitmap ;
+                                        Picture picture = (Picture) data;
+                                        if (picture != null) {
+                                            goodsList.get(tmpi).head_photo = picture;
                                             recyclerAdapter.notifyItemChanged(tmpi); //更新控件的图片.
                                         }
                                     }
                                 }
-                        ) ;
+                        );
                     }
                 }
-                else    {
+                else{
                     new SweetAlertDialog(CONTEXT, SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("获取商品失败,下拉刷新重试")
                             .show();
@@ -111,4 +111,8 @@ public class CommodityView extends LinearLayout {
         }.excute();
     }
 
+    public void setHolderSize(int w, int h) {
+        recyclerAdapter.holder_h = h ;
+        recyclerAdapter.holder_w = w ;
+    }
 }

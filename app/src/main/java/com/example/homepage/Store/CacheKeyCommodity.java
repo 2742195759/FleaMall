@@ -2,12 +2,13 @@ package com.example.homepage.Store;
 
 import java.util.HashMap;
 
+import javax.sql.CommonDataSource;
+
 /**
  * Created by Administrator on 2018/5/3.
  */
 
 public class CacheKeyCommodity extends CacheKey {
-    static HashMap<CacheKeyCommodity , Commodity> table = new HashMap<CacheKeyCommodity , Commodity>();
     public String cno ;
     @Override
     public CacheData getCacheData() {
@@ -17,9 +18,10 @@ public class CacheKeyCommodity extends CacheKey {
     @Override
     public CacheData newCacheData() {
         Commodity data  = new Commodity(cno) ;
-        table.put(this , data) ;
+        insertCacheData(data);
         return data ;
     }
+
     public CacheKey setCno (String cno) {
         this.cno = cno ;
         return this ;

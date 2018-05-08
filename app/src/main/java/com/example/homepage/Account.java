@@ -5,4 +5,6 @@ public class Account {
     public static String password = "3511";
     public static String nick = "熊昆";
     public static boolean login_flag = true;
+
+    public static int global_width = 0 ;
 }

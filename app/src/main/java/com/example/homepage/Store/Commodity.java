@@ -15,7 +15,7 @@ import Respond.RspSingleRow;
 public class Commodity extends CacheData{
     public String cno ;
     public String title;
-    public Bitmap head_photo = null; /// head photo
+    public Picture head_photo = null ; /// head photo
     public String price  ;
     public String detail ;
     public String addr   ;

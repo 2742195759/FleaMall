@@ -1,8 +1,8 @@
-﻿package com.example.homepage.View;
-
+package com.example.homepage.View;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,13 +17,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.homepage.Account;
 import com.example.homepage.R;
 import com.example.homepage.Store.Picture;
 
@@ -43,12 +46,13 @@ import java.util.Date;
 
 class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.PictureHolder> {
     static int MaxPicNum = 6 ;
-
-    public ArrayList<Bitmap> pictures = new ArrayList<Bitmap>() ;
+    public ArrayList<Picture> pictures = new ArrayList<Picture>() ;
     public int actual_size = 0 ;
     public AppCompatActivity activity = null;
     static final int REQUEST_IMAGE_CAPTURE = 1 ;
     public static final int CHOOSE_PHOTO = 2;
+    public int holder_w , holder_h ;
+
     private void openAlbum() {
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
         intent.setType("image/*");
@@ -137,7 +141,7 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
                     }
                 }
                 else{
-                        Bitmap picture = pictures.get(x);
+                        Bitmap picture = pictures.get(x).getBitmapInBound();
                         Intent intend = new Intent(v.getContext(),ShowLargePicture.class);
                         intend.putExtra("picture" , picture) ;
                         v.getContext().startActivity(intend) ;
@@ -150,7 +154,10 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
 
     @Override
     public void onBindViewHolder(PictureHolder holder, int position) {
-        holder.img.setImageBitmap(pictures.get(position));
+        Bitmap bitmap = pictures.get(position).getBitmapInBound(holder_w ,
+                holder_h) ;
+        holder.img.setImageBitmap(bitmap);
+        Toast.makeText(activity , "图片大小:" + bitmap.getByteCount()/1024+"kb" , Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -166,43 +173,50 @@ public class PictureShowView extends LinearLayout {
     public PictureShowView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.picture_show_view , this) ;
-        rview = this.findViewById(R.id.recyclerview) ;
+        rview = (RecyclerView) this.findViewById(R.id.recyclerview) ;
         rview.setLayoutManager(new GridLayoutManager(context , 4));
+        setHolderSize(Account.global_width / 4 , Account.global_width / 4) ;
         addExtraPicture();
         rview.setAdapter(adapter);
     }
     ///show function ;
-    public PictureShowView setLayoutManager(RecyclerView.LayoutManager lm) {
+    public PictureShowView setLayoutManager(RecyclerView.LayoutManager lm , int num_in_width) {
         rview.setLayoutManager(lm);
+        setHolderSize(Account.global_width / num_in_width , Account.global_width / num_in_width);
         return this ;
     }
+    public void setHolderSize(int w, int h) {
+        adapter.holder_w = w ;
+        adapter.holder_h = h ;
+    }
     protected void addExtraPicture() {
-        __addActualPicture(BitmapFactory.decodeResource(getResources() , R.drawable.camera_icon)) ;
-        __addActualPicture(BitmapFactory.decodeResource(getResources() , R.drawable.album_icon)) ;
+        ///How to get the View's height and widht ?
+        __addActualPicture(new Picture(getResources() , R.drawable.camera_icon)) ;
+        __addActualPicture(new Picture(getResources() , R.drawable.album_icon)) ;
         adapter.actual_size -= 2 ; /// Nice
     }
-    protected void __addActualPicture(Bitmap bitmap) {
+    protected void __addActualPicture(Picture pic) {
         if(adapter.pictures == null) {
-            adapter.pictures = new ArrayList<Bitmap>() ;
+            adapter.pictures = new ArrayList<Picture>() ;
             adapter.actual_size = 0 ;
         }
         if(adapter.pictures.size() > adapter.actual_size) {
-            adapter.pictures.set(adapter.actual_size , bitmap) ;
+            adapter.pictures.set(adapter.actual_size , pic) ;
         }
         else {
-            adapter.pictures.add(bitmap) ;
+            adapter.pictures.add(pic) ;
         }
         adapter.actual_size ++ ;
     }
 
-    public PictureShowView setPictureList(ArrayList<Bitmap>pics) {
+    public PictureShowView setPictureList(ArrayList<Picture>pics) {
         adapter.pictures = pics ; adapter.actual_size = pics.size() ;
         addExtraPicture();
         adapter.notifyDataSetChanged();
         return this ;
     }
-    public PictureShowView addPicture (Bitmap bitmap) {
-        __addActualPicture(bitmap) ;
+    public PictureShowView addPicture (Picture pic) {
+        __addActualPicture(pic) ;
         addExtraPicture();
         adapter.notifyDataSetChanged();
         return this ;
@@ -214,22 +228,16 @@ public class PictureShowView extends LinearLayout {
 
     public void onTakePicture() {
         //adapter.galleryAddPic();
-        try {
-            Bitmap bitmap = Picture.getBitmapFromPath(adapter.mCurrentPhotoPath, width, height) ;
-            Toast.makeText(adapter.activity , "图片大小:"+bitmap.getByteCount()/1024+"kb" ,Toast.LENGTH_SHORT).show(); ;
-            addPicture(bitmap) ;
-        } catch (FileNotFoundException e) {
-            Toast.makeText(adapter.activity , "没有找到文件",Toast.LENGTH_SHORT).show(); ;
-        } catch (IOException e) {
-            Toast.makeText(adapter.activity , "旋转失败",Toast.LENGTH_SHORT).show();
-        }
+        //Toast.makeText(adapter.activity , "图片大小:"+bitmap.getByteCount()/1024+"kb" ,Toast.LENGTH_SHORT).show(); ;
+        addPicture(new Picture(adapter.mCurrentPhotoPath)) ;
+
     }
     public int getPictureNumber() {
         return adapter.actual_size ;
     }
     public byte[] getPictureByteArray(int index) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        adapter.pictures.get(index).compress(Bitmap.CompressFormat.JPEG ,10 , baos) ;
+        adapter.pictures.get(index).getBitmapInBound().compress(Bitmap.CompressFormat.JPEG ,10 , baos) ;
         return baos.toByteArray() ;
     }
     public int getPictureOriginOrder(int index) {

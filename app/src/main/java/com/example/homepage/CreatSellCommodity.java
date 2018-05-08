@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,32 +13,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.provider.DocumentsContract;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.example.homepage.Store.Cache;
 import com.example.homepage.Store.CacheCallBack;
 import com.example.homepage.Store.CacheData;
-import com.example.homepage.Store.CacheKey;
 import com.example.homepage.Store.CacheKeyCommodity;
 import com.example.homepage.Store.Commodity;
 import com.example.homepage.View.BottomTitleLayout;
 import com.example.homepage.View.PictureShowView;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import Message.MsgCommodityCreateSell;
 import Message.MsgImageSave;
 import Respond.*;
-import com.example.homepage.View.PictureShowView ;
 
 
 public class CreatSellCommodity extends AppCompatActivity {
@@ -54,7 +44,6 @@ public class CreatSellCommodity extends AppCompatActivity {
     EditText information ;
     EditText price ;
     EditText address ;
-    Goods goods = null ;
     Commodity commodity = null ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

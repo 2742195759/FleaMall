@@ -1,13 +1,19 @@
-package com.example.homepage;
+package com.example.homepage.View;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.homepage.Account;
+import com.example.homepage.CreatSellCommodity;
+import com.example.homepage.R;
+import com.example.homepage.Store.Commodity;
 
 import java.util.List;
 
@@ -17,7 +23,8 @@ import java.util.List;
  */
 
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> {
-    private List<Goods> mGoodsList;
+    private List<Commodity> mGoodsList;
+    public int holder_h , holder_w ;
     static class ViewHolder extends RecyclerView.ViewHolder {
         String cno = null ;
         ImageView goodsImage;
@@ -28,12 +35,12 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> 
             super(view);
             //goodsImage = (ImageView)view;
             goodsView = view ;
-            goodsImage = goodsView.findViewById(R.id.goods_image) ;
-            goodsPrice = goodsView.findViewById(R.id.goods_price) ;
-            goodsTitle = goodsView.findViewById(R.id.goods_title) ;
+            goodsImage = (ImageView)goodsView.findViewById(R.id.goods_image) ;
+            goodsPrice = (TextView)goodsView.findViewById(R.id.goods_price) ;
+            goodsTitle = (TextView)goodsView.findViewById(R.id.goods_title) ;
         }
     }
-    public GoodsAdapter(List<Goods> goodsList) {
+    public GoodsAdapter(List<Commodity> goodsList) {
         mGoodsList = goodsList;
     }
     @Override
@@ -52,9 +59,13 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> 
     }
     @Override
     public void onBindViewHolder(ViewHolder holder,int position) {
-        Goods goods = mGoodsList.get(position);
+        Commodity goods = mGoodsList.get(position);
         if(goods.head_photo == null) holder.goodsImage.setImageResource(R.drawable.g1);
-        else                         holder.goodsImage.setImageBitmap(goods.head_photo);
+        else  {
+            Bitmap bitmap = goods.head_photo.getBitmapInBound(holder_w , holder_h) ;
+            holder.goodsImage.setImageBitmap(bitmap);
+            Log.d("DEBUG" , "" + bitmap.getByteCount() / 1024 + "kb") ;
+        }
         holder.goodsTitle.setText(goods.title);
         holder.cno = goods.cno ;
         if(goods.price!=null) holder.goodsPrice.setText(goods.price+"￥");
