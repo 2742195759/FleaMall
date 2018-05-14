@@ -4,14 +4,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="7dp"
     >
 
     <com.example.homepage.View.Ratio1ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/goods_image"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         android:layout_gravity="center_horizontal" />
 
     <TextView

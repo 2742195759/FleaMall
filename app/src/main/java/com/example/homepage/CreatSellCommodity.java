@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -52,9 +53,12 @@ public class CreatSellCommodity extends AppCompatActivity {
         information =  (EditText) findViewById(R.id.information);
         price =  (EditText) findViewById(R.id.price);
         address =  (EditText) findViewById(R.id.address) ;
-//用户选择图片按钮，会下拉出菜单选择相机或相册
+        //用户选择图片按钮，会下拉出菜单选择相机或相册
         //Button tack_picture = (Button) findViewById(R.id.take_picture);
-
+        ActionBar actionbar = getSupportActionBar();
+        if(actionbar!=null) {
+            actionbar.setTitle("创建商品:");
+        }
         if(getIntent().getExtras() != null) {
             String cno = (String)getIntent().getExtras().get("commodity");
             Cache.getCacheData(new CacheKeyCommodity().setCno(cno), new CacheCallBack() {

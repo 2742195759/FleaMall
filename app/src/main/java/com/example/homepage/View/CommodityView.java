@@ -58,6 +58,7 @@ public class CommodityView extends LinearLayout {
     */
     public CommodityView setMessage(Message msg) {
         this.msg = msg ;
+        refleshGoods(); ///直接刷新.
         return this ;
     }
     /*
@@ -66,6 +67,7 @@ public class CommodityView extends LinearLayout {
     */
     private int tmpi ;
     private void refleshGoods() {
+        if(msg == null) return  ;
         new MessageAsync<RspMultiRow>(msg) {
             @Override
             public void handle_result(RspMultiRow result , int cnt) {
@@ -77,12 +79,13 @@ public class CommodityView extends LinearLayout {
                         new CacheKeyCommodity().setCno(commodity.cno).insertCacheData(commodity);
                         ///添加进入缓存.
                         goodsList.add(commodity);
-//                        new SweetAlertDialog(CONTEXT, SweetAlertDialog.ERROR_TYPE)
-//                                .setTitleText("商品解析失败")
-//                                .show();
-//                        break ;
                     }
                     setRecycleViewContent();
+                    if(goodsList.size() == 0) {
+                        new SweetAlertDialog(CONTEXT, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("没有找到商品哦!!")
+                                .show();
+                    }
                     for (int i = 0; i < goodsList.size(); ++i) {
                         final int _tmpi = i;
                         Cache.getCacheData(new CacheKeyPicture().setCno(

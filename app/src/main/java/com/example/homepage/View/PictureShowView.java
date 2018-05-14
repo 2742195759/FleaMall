@@ -157,7 +157,7 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
         Bitmap bitmap = pictures.get(position).getBitmapInBound(holder_w ,
                 holder_h) ;
         holder.img.setImageBitmap(bitmap);
-        Toast.makeText(activity , "图片大小:" + bitmap.getByteCount()/1024+"kb" , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(activity , "图片大小:" + bitmap.getByteCount()/1024+"kb" , Toast.LENGTH_SHORT).show();
     }
 
     @Override
