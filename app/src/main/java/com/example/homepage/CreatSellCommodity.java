@@ -49,7 +49,7 @@ public class CreatSellCommodity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState) ;
-        setContentView(R.layout.creat_sell_commodity_layout);
+        setContentView(R.layout.ac_creat_sell_commodity);
         information =  (EditText) findViewById(R.id.information);
         price =  (EditText) findViewById(R.id.price);
         address =  (EditText) findViewById(R.id.address) ;

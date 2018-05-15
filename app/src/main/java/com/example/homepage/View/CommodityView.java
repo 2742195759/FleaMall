@@ -32,7 +32,7 @@ public class CommodityView extends LinearLayout {
     private List<Commodity> goodsList = new ArrayList<Commodity>();
     public CommodityView (final Context context, AttributeSet attrs) {
         super(context , attrs) ;
-        LayoutInflater.from(context).inflate(R.layout.layout_commodity_view,this);
+        LayoutInflater.from(context).inflate(R.layout.commodity_view,this);
         recyclerView = (RecyclerView) this.findViewById(R.id.recyclerview) ;
         setRecycleView();
         CONTEXT = context ;
@@ -43,6 +43,7 @@ public class CommodityView extends LinearLayout {
                 refleshGoods();
             }
         });
+        swipe.setWaveColor(getResources().getColor(R.color.buttom_single_text_color));
     }
     private void setRecycleView() {
         GridLayoutManager layoutManager = new GridLayoutManager(CONTEXT , 2);

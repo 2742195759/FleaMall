@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -141,10 +142,10 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
                     }
                 }
                 else{
-                        Bitmap picture = pictures.get(x).getBitmapInBound();
-                        Intent intend = new Intent(v.getContext(),ShowLargePicture.class);
-                        intend.putExtra("picture" , picture) ;
-                        v.getContext().startActivity(intend) ;
+                        Picture pic = pictures.get(x) ;
+                        Intent intent = new Intent(v.getContext(),ShowLargePicture.class);
+                        intent.putExtra("picture" , "sdfd") ;
+                        v.getContext().startActivity(intent) ;
 
                 }
             }

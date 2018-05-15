@@ -41,6 +41,12 @@
         android:layout_height="230dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1" />
+    <View
+        android:id="@+id/view_block"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#88000000"
+        />
     <com.example.homepage.View.BottomTitleLayout
         android:id="@+id/bottomtitle"
         android:layout_width="match_parent"

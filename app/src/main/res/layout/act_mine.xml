@@ -142,6 +142,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/person_history_button" />
 
+    <View
+        android:id="@+id/view_block"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ff000000"
+        app:layout_constraintBottom_toTopOf="@+id/bottomtitle" />
     <com.example.homepage.View.BottomTitleLayout
         android:id="@+id/bottomtitle"
         android:layout_width="match_parent"

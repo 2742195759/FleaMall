@@ -23,7 +23,7 @@ public class MineActivity extends AppCompatActivity {
 
         instance=this;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_mine);
+        setContentView(R.layout.act_mine);
         ((CommodityView)findViewById(R.id.commodity_view)).setMessage(new MsgCommodityByTable(Account.account,
                 Account.password, MsgCommodityByTable.Sell)) ;
         //昵称显示控件

@@ -1,11 +1,14 @@
 package com.example.homepage;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.support.v7.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.homepage.View.CommodityView;
@@ -18,8 +21,7 @@ import Message.MsgCommodityByTime;
 import Respond.RspMultiRow;
 
 public class SearchActivity extends AppCompatActivity{
-    TextView textview = null ;
-    Button search_button = null ;
+    SearchView searchview  ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,16 +30,25 @@ public class SearchActivity extends AppCompatActivity{
         if(actionbar!=null) {
             actionbar.hide();
         }
-        textview = (TextView)findViewById(R.id.search_edittext) ;
-        search_button = (Button) findViewById(R.id.search_button) ;
-        search_button.setOnClickListener(new View.OnClickListener() {
+        searchview = (SearchView)findViewById(R.id.searchview) ;
+        SearchView search = (SearchView) findViewById(R.id.searchview) ;
+        search.setIconified(false);
+        search.setQueryHint("输入你想要的商品");
+        search.setSubmitButtonEnabled(true);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View view) {
-                String search_text = textview.getText().toString() ;
+            public boolean onQueryTextSubmit(String query) {
+                String search_text = query ;
                 Message msg = new MsgCommodityByTime(search_text) ;
-                Intent intent = new Intent(textview.getContext() , SearchShowActivity.class) ;
+                Intent intent = new Intent(searchview.getContext() , SearchShowActivity.class) ;
                 intent.putExtra("msg" , msg) ;
                 startActivity(intent);
+                return true ;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
         Permission.verifyStoragePermissions(this) ;

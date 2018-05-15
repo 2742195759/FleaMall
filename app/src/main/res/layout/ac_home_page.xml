@@ -20,7 +20,12 @@
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"></com.example.homepage.View.CommodityView>
-
+    <View
+        android:id="@+id/view_block"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#88000000"
+        />
     <com.example.homepage.View.BottomTitleLayout
         android:id="@+id/bottomtitle"
         android:layout_width="match_parent"
