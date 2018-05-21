@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.example.homepage.Account;
 import com.example.homepage.MessageAsync;
@@ -14,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,15 +27,19 @@ import Respond.RspImage;
  * Created by Administrator on 2018/5/4.
  */
 
-public class Picture extends CacheData{
+public class Picture extends CacheData {
+
     public abstract class FetchBitmap {
         public abstract Bitmap fetchBitmap(BitmapFactory.Options options) ;
+
     }
     public class FetchBitmapFromFile extends FetchBitmap {
         String file_path ;
+
         public FetchBitmapFromFile(String path) {
             file_path = path ;
         }
+
         @Override
         public Bitmap fetchBitmap(BitmapFactory.Options options) {
             Bitmap bitmap = BitmapFactory.decodeFile(file_path , options) ;
@@ -44,14 +51,21 @@ public class Picture extends CacheData{
         }
     }
     public class FetchBitmapFromRes extends FetchBitmap {
-        int resid ;
         Resources res ;
+        int resid ;
         public FetchBitmapFromRes(Resources res , int id) {
             resid = id ; this.res = res ;
         }
+
         @Override
         public Bitmap fetchBitmap(BitmapFactory.Options options) {
             return BitmapFactory.decodeResource(res , resid , options) ;
+        }
+
+        public FetchBitmapFromRes(Parcel Par)
+        {
+           // res = Par.readParcelable( Resources.class.getClassLoader());
+            resid = Par.readInt();
         }
     }
 
@@ -189,4 +203,13 @@ public class Picture extends CacheData{
     public Bitmap getBitmapInBound() {
         return getBitmapInBound(-1 , -1) ;
     }
+    public Picture(Parcel p) {
+        // 序列化自定义对象 需要传入上下文类加载器
+        THIS = p.readParcelable(Thread.currentThread().getContextClassLoader());
+        Max = p.readInt();
+        cno = p.readString();
+        num = p.readInt();
+        fetch = p.readParcelable(Thread.currentThread().getContextClassLoader());
+    }
+
 }

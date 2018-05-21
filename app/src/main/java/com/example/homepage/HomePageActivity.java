@@ -8,15 +8,11 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.support.v7.widget.SearchView;
 
-import com.example.homepage.Store.Commodity;
 import com.example.homepage.View.BottomTitleLayout;
 import com.example.homepage.View.CommodityView;
 import com.example.homepage.View.Permission;
-import com.example.homepage.SearchActivity ;
-
-import org.w3c.dom.ls.LSException;
 
 import Message.MsgCommodityByTime;
 
@@ -34,21 +30,22 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getAndroiodScreenProperty() ;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_home_page);
+        setContentView(R.layout.ac_home_page);
         ((CommodityView)findViewById(R.id.commodity_view)).setHolderSize(Account.global_width / 2 , Account.global_width / 2) ;
         ((CommodityView)findViewById(R.id.commodity_view)).setMessage(new MsgCommodityByTime(0 , 10)) ;
         ActionBar actionbar = getSupportActionBar();
         if(actionbar!=null) {
             actionbar.hide();
         }
-        TextView textview = (TextView)findViewById(R.id.search_edittext) ;
-        textview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
+        SearchView searchview = (SearchView)findViewById(R.id.searchview) ;
+        searchview.clearFocus();
+        searchview.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if(b == true) {
+                    view.clearFocus();
                     Intent intent = new Intent(view.getContext() , SearchActivity.class) ;
-                    startActivity(intent);
+                    startActivity(intent) ;
                 }
             }
         });

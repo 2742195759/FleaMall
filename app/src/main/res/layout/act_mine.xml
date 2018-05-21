@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="384dp"
+        android:layout_height="141dp"
+        android:background="#22000000"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <Button
+            android:id="@+id/head_portrait"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/headportrait"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nick"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:background="@android:color/transparent"
+            android:text="昵称:"
+            app:layout_constraintStart_toEndOf="@+id/head_portrait"
+            app:layout_constraintTop_toTopOf="@+id/head_portrait" />
+
+        <TextView
+            android:id="@+id/addr"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:background="@android:color/transparent"
+            android:text="地址:"
+            app:layout_constraintStart_toStartOf="@+id/nick"
+            app:layout_constraintTop_toTopOf="@+id/nick" />
+
+        <TextView
+            android:id="@+id/conway"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="27dp"
+            android:background="@android:color/transparent"
+            android:text="联系:"
+            app:layout_constraintStart_toStartOf="@+id/nick"
+            app:layout_constraintTop_toTopOf="@+id/addr" />
+
+        <TextView
+            android:id="@+id/more"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@android:color/transparent"
+            android:text="备注:"
+            app:layout_constraintBottom_toBottomOf="@+id/head_portrait"
+            app:layout_constraintStart_toStartOf="@+id/nick"
+            app:layout_constraintTop_toTopOf="@+id/conway"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="20dp"
+            android:background="#ff000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/head_portrait" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/commodity_button"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:text="我的订单"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    <Button
+        android:id="@+id/person_history_button"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:text="交易过的人"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goods_history_button" />
+
+    <Button
+        android:id="@+id/goods_history_button"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:text="浏览过的物品"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commodity_button" />
+
+    <com.example.homepage.View.CommodityView
+        android:id="@+id/commodity_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/person_history_button" />
+
+    <View
+        android:id="@+id/view_block"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ff000000"
+        app:layout_constraintBottom_toTopOf="@+id/bottomtitle" />
+    <com.example.homepage.View.BottomTitleLayout
+        android:id="@+id/bottomtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="2dp" />
+
+</android.support.constraint.ConstraintLayout>

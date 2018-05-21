@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -25,7 +26,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.example.homepage.Account;
 import com.example.homepage.R;
 import com.example.homepage.Store.Picture;
@@ -46,14 +46,14 @@ import java.util.Date;
 
 class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.PictureHolder> {
     static int MaxPicNum = 6 ;
-    public ArrayList<Picture> pictures = new ArrayList<Picture>() ;
-    public int actual_size = 0 ;
+    public static ArrayList<Picture> pictures = new ArrayList<Picture>() ;
+    public static  int actual_size = 0 ;
     public AppCompatActivity activity = null;
     static final int REQUEST_IMAGE_CAPTURE = 1 ;
     public static final int CHOOSE_PHOTO = 2;
     public int holder_w , holder_h ;
 
-    private void openAlbum() {
+    public void openAlbum() {
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
         intent.setType("image/*");
         activity.startActivityForResult(intent, CHOOSE_PHOTO); // 打开相册
@@ -98,6 +98,7 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
 
         }
     }
+
     public void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(mCurrentPhotoPath);
@@ -114,6 +115,7 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
             img = (ImageView) itemView.findViewById(R.id.imageView) ;
         }
     }
+
     @Override
     public PictureHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.picture_show_single
@@ -141,11 +143,9 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
                     }
                 }
                 else{
-                        Bitmap picture = pictures.get(x).getBitmapInBound();
                         Intent intend = new Intent(v.getContext(),ShowLargePicture.class);
-                        intend.putExtra("picture" , picture) ;
+                         intend.putExtra("extra_int",x);
                         v.getContext().startActivity(intend) ;
-
                 }
             }
         });
@@ -169,7 +169,7 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
 
 public class PictureShowView extends LinearLayout {
     RecyclerView rview = null ;
-    PictureShowAdapter adapter = new PictureShowAdapter() ;
+    public  PictureShowAdapter adapter = new PictureShowAdapter() ;
     public PictureShowView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.picture_show_view , this) ;

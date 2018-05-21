@@ -1,18 +1,14 @@
 package com.example.homepage;
 
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.support.v7.widget.SearchView;
 
-import com.example.homepage.Store.Commodity;
 import com.example.homepage.View.BottomTitleLayout;
 import com.example.homepage.View.CommodityView;
-import com.example.homepage.View.Permission;
 
 import Message.Message;
 
@@ -20,7 +16,7 @@ public class SearchShowActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_home_page);
+        setContentView(R.layout.ac_home_page);
         ActionBar actionbar = getSupportActionBar();
         if(actionbar!=null) {
             actionbar.hide();
@@ -31,14 +27,15 @@ public class SearchShowActivity extends AppCompatActivity{
         if(intent != null && intent.getExtras() != null && intent.getExtras().get("msg") != null) {
             commodityView.setMessage((Message)(intent.getExtras().get("msg"))) ;
         }
-        TextView textview = (TextView)findViewById(R.id.search_edittext) ;
-        textview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
+        SearchView searchview = (SearchView)findViewById(R.id.searchview) ;
+        searchview.clearFocus();
+        searchview.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if(b == true) {
+                    view.clearFocus();
                     Intent intent = new Intent(view.getContext() , SearchActivity.class) ;
-                    startActivity(intent);
+                    startActivity(intent) ;
                 }
             }
         });

@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
-    <ScrollView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/entry_pic"
-        android:layout_margin="0dip"
-        android:padding="0dip">
-        <ImageView android:layout_height="wrap_content"
-            android:id="@+id/large_image"
-            android:layout_marginTop="0dip"
-            android:paddingTop="0dip"
-            android:adjustViewBounds="true"
-            android:layout_width="fill_parent">
-        </ImageView>
-    </ScrollView>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/gallery_viewpager_layout"
+    android:clipChildren="false"
+    android:orientation="vertical" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/large_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:clipChildren="false"
+            />
 </LinearLayout>
