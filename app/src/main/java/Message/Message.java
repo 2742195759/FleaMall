@@ -1,4 +1,6 @@
 package Message;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -86,10 +88,10 @@ public abstract class Message implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	//static final String server_ip = "127.0.0.1" ;
-	//static final int port = 3511 ;
-	//static final String image_path = "/home/xopngkun/桌面/image/" ; 
-	//static final String path_delm = "/" ; 
+//	static final String server_ip = "127.0.0.1" ;
+//	static final int port = 3511 ;
+//	static final String image_path = "/home/xopngkun/桌面/image/" ; 
+//	static final String path_delm = "/" ; 
 	static final String server_ip = "211.159.180.189" ;
 	static final int port = 3511 ;
 	static final String image_path = "C:\\image\\" ;
@@ -112,7 +114,7 @@ public abstract class Message implements java.io.Serializable{
 		try {
 			Socket sock = new Socket(server_ip , port) ;
 			ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream()) ;
-			ObjectInputStream ois = new ObjectInputStream(sock.getInputStream()) ;
+			ObjectInputStream ois = new ObjectInputStream(sock.getInputStream());
 			oos.writeObject(this);
 			res = (Respond) ois.readObject() ;
 			sock.close() ;

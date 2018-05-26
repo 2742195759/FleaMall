@@ -1,7 +1,5 @@
 package com.example.homepage.Store;
 
-import java.util.HashMap;
-
 /**
  * Created by Administrator on 2018/5/4.
  */
@@ -17,7 +15,6 @@ public class CacheKeyPicture extends CacheKey {
     @Override
     public CacheData newCacheData() {
         Picture data = new Picture(cno , num) ;
-        insertCacheData(data);
         return data ;
     }
 
@@ -28,5 +25,16 @@ public class CacheKeyPicture extends CacheKey {
     public CacheKeyPicture setNum(int num) {
         this.num = num ;
         return this ;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() * cno.hashCode() * num ;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        CacheKeyPicture pic = (CacheKeyPicture) obj ;
+        return cno.equals(pic.cno) && num == pic.num ;
     }
 }

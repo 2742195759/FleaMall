@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.homepage.Account;
 import com.example.homepage.CreatSellCommodity;
 import com.example.homepage.R;
 import com.example.homepage.Store.Commodity;

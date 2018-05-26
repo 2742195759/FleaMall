@@ -41,12 +41,13 @@ public class RspSingleRow extends Respond {
 		// TODO Auto-generated method stub
 		try {
 		for(String k : s) {
-			Object x = rs.getObject(k) ; 
+			Object x = rs.getObject(k) ;
 			if(x == null) is_null.put(k, "null") ; 
 			else hmap.put(k , x) ; 
 		}
 		}
 		catch(SQLException e) {
+			e.printStackTrace();
 			state = "Server Error : FromRS have get a error string column name\n" ; 
 		}
 		return this ; 

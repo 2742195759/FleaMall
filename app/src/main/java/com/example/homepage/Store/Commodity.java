@@ -1,11 +1,8 @@
 package com.example.homepage.Store;
 
-import android.graphics.Bitmap;
-
 import com.example.homepage.MessageAsync;
 
 import Message.MsgCommodityByCno;
-import Respond.RspMultiRow;
 import Respond.RspSingleRow;
 
 /**
@@ -39,18 +36,24 @@ public class Commodity extends CacheData{
     }
 
     @Override
-    public void getFromDataBase(final CacheCallBack callback) {
+    public void getFromDataBase(CacheCallBack callback) {
+        cachecallback = callback ;
         new MessageAsync <RspSingleRow> (new MsgCommodityByCno(cno)) {
             @Override
             public void handle_result(RspSingleRow result, int cnt) {
                 commodity.getAttributeFromSingleRow(result) ;
-                callback.callback(commodity);
+                cachecallback.callback(commodity);
             }
         }.excute();
     }
 
     @Override
-    public boolean outDate() {
-        return true;
+    public void getDateFromDataBase (CallBack callback) {
+        callback.callback(null);
+    }
+
+    @Override
+    protected boolean available() {
+        return false;
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.homepage.Activity.LoginActivity;
 import com.example.homepage.View.BottomTitleLayout;
 import com.example.homepage.View.CommodityView;
 
@@ -24,8 +25,6 @@ public class MineActivity extends AppCompatActivity {
         instance=this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_mine);
-        ((CommodityView)findViewById(R.id.commodity_view)).setMessage(new MsgCommodityByTable(Account.account,
-                Account.password, MsgCommodityByTable.Sell)) ;
         //昵称显示控件
         nickButton = (TextView) findViewById(R.id.nick);
         //标题栏隐去
@@ -33,16 +32,21 @@ public class MineActivity extends AppCompatActivity {
         if(actionbar!=null) {
             actionbar.hide();
         }
+        ((CommodityView)findViewById(R.id.commodity_view)).setHolderSize(Account.global_width / 2 , Account.global_width / 2) ;
+        ((CommodityView)findViewById(R.id.commodity_view)).setMessage(new MsgCommodityByTable(Account.account,
+                Account.password, MsgCommodityByTable.Sell)) ;
         //通过按钮跳转到发布消息界面..
         ((Button) findViewById(R.id.commodity_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((CommodityView)findViewById(R.id.commodity_view)).setVisibility(View.VISIBLE);
+
             }
         });
         //
         Button person_history_button = (Button) findViewById(R.id.person_history_button);
-        person_history_button.setOnClickListener(new View.OnClickListener() {
+        person_history_button.setOnClickListener(
+                new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MineActivity.this,MessageActivity.class);

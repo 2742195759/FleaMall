@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
@@ -33,11 +34,13 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.ac_home_page);
         ((CommodityView)findViewById(R.id.commodity_view)).setHolderSize(Account.global_width / 2 , Account.global_width / 2) ;
         ((CommodityView)findViewById(R.id.commodity_view)).setMessage(new MsgCommodityByTime(0 , 10)) ;
-        ActionBar actionbar = getSupportActionBar();
-        if(actionbar!=null) {
-            actionbar.hide();
-        }
-        SearchView searchview = (SearchView)findViewById(R.id.searchview) ;
+        Toolbar mytoolbar = (Toolbar) findViewById(R.id.my_toolbar) ;
+        setSupportActionBar(mytoolbar);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.search);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+        SearchView searchview = (SearchView)getSupportActionBar().getCustomView().findViewById(R.id.searchview) ;
+        searchview.setIconified(true);
         searchview.clearFocus();
         searchview.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

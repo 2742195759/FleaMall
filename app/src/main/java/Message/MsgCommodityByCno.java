@@ -25,7 +25,8 @@ public class MsgCommodityByCno extends Message { ///不需要权限
 	protected Respond handle(Connection conn) throws Exception {
 		// TODO Auto-generated method stub
 		Statement stm = conn.createStatement() ; 
-		ResultSet rs = stm.executeQuery(String.format("select * from Commodity where cno = \'%s\'", cno)) ; 
+		ResultSet rs = stm.executeQuery(String.format("select * from Commodity where cno = \'%s\'", cno)) ;
+		rs.next() ; 
 		RspSingleRow rsr = new RspSingleRow() ; 
 		return rsr.insertFromResultSet(rs, "cno" , "detail" , "brief" , "price" , "addr") ;
 	}

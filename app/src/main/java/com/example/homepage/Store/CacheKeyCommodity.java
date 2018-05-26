@@ -1,9 +1,5 @@
 package com.example.homepage.Store;
 
-import java.util.HashMap;
-
-import javax.sql.CommonDataSource;
-
 /**
  * Created by Administrator on 2018/5/3.
  */
@@ -18,12 +14,22 @@ public class CacheKeyCommodity extends CacheKey {
     @Override
     public CacheData newCacheData() {
         Commodity data  = new Commodity(cno) ;
-        insertCacheData(data);
         return data ;
     }
 
     public CacheKey setCno (String cno) {
         this.cno = cno ;
         return this ;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() * cno.hashCode() ;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        CacheKeyCommodity com = (CacheKeyCommodity) obj ;
+        return cno.equals(com.cno) ;
     }
 }

@@ -6,12 +6,12 @@
     android:orientation="vertical"
     android:focusableInTouchMode="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <com.example.homepage.View.SearchLayout
-        android:layout_height="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_gravity="top"
-        android:layout_weight="0"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/fleamall_actionbar"
+        android:elevation="4dp"
         />
 
     <com.example.homepage.View.CommodityView
@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"></com.example.homepage.View.CommodityView>
+        android:layout_weight="1">
+    </com.example.homepage.View.CommodityView>
     <View
         android:id="@+id/view_block"
         android:layout_width="match_parent"

@@ -38,10 +38,12 @@ public class RspImage extends Respond{ ///一个表示一个图片.
 		FileInputStream fis = new FileInputStream(path) ; 
 		data = new byte[fis.available()] ; 
 		fis.read(data) ; 
+		System.out.print("RspImage.java:45\nFetch Image in " + path);
 	}
 	public void saveImage(String path) throws IOException {
 		FileOutputStream fos = new FileOutputStream(path) ; 
 		fos.write(data);
-		System.out.print("Save Image in " + path);
+		System.out.print("RspImage.java:45\nSave Image in " + path);
+		fos.close(); 
 	}
 }

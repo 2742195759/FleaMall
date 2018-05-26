@@ -1,13 +1,10 @@
 package com.example.homepage.View;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.homepage.CreatSellCommodity;
@@ -51,6 +48,13 @@ public class BottomTitleLayout extends LinearLayout {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,MineActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        bottoms[2].setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, com.example.homepage.Activity.ChatMainActivity.class) ;
                 context.startActivity(intent);
             }
         });

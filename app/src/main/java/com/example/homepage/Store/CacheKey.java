@@ -1,5 +1,6 @@
 package com.example.homepage.Store;
 
+import java.util.Date;
 import java.util.HashMap;
 
 /*
@@ -10,6 +11,7 @@ public abstract class CacheKey {
     public abstract CacheData getCacheData() ; /// null means not found ;
     public abstract CacheData newCacheData();
     public void insertCacheData(CacheData data) {
+        if(data.cnt_date == null) data.cnt_date = new Date() ;
         table.put(this , data) ;
     }
 }

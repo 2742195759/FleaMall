@@ -41,7 +41,7 @@ public class MsgLoveOperate extends Message{
 			String[] id = {"sno" , "cno" , "flea_date"} ; 
 			String[] val = {acc , cno , "now()"} ;
 			String sql = SqlTool.genInsert("Loving", id, val) ; 
-			//System.out.print(sql+"\n");
+		
 			stm.executeUpdate(sql) ; 
 		}
 		else if(type.equals(delete)) {

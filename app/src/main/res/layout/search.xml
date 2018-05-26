@@ -1,36 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/buttom_single_text_color">
-
-    <!--<EditText-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:id="@+id/search_edittext"-->
-        <!--android:text="输入你想要的东西"-->
-        <!--android:textSize = "15dp"-->
-        <!--android:textColor="#fff"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:layout_marginLeft="20dp"-->
-        <!--android:textCursorDrawable="@xml/cursor_color"-->
-    <!--/>-->
-    <android.support.v7.widget.SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchview"
-        app:iconifiedByDefault="false"/>
-    <!--<com.example.homepage.View.Ratio1ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/search_button"-->
-        <!--android:layout_weight="0"-->
-        <!--android:layout_margin="10dp"-->
-        <!--android:src="@drawable/search"-->
-        <!--android:background="@color/buttom_single_text_color"-->
-        <!--/>-->
-
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    >
+<android.support.v7.widget.SearchView
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:id="@+id/searchview"
+    android:visibility="visible"
+    app:iconifiedByDefault="false"
+    android:layout_gravity="top"
+    android:layout_weight="0"
+    >
+</android.support.v7.widget.SearchView>
 </LinearLayout>

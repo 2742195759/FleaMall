@@ -39,9 +39,9 @@ public class MsgImageSave extends Message{
 		Statement stm = conn.createStatement() ;
 		Message.createPhoteDir(cno) ; 
 		int next = 0;
-			ResultSet rs = stm.executeQuery(String.format("select photo_num as size from Commodity "
-					+ "where cno = \'%s\'" , cno)) ; rs.next() ;
-			int old_size = rs.getInt("size") ;
+		ResultSet rs = stm.executeQuery(String.format("select photo_num as size from Commodity "
+				+ "where cno = \'%s\'" , cno)) ; rs.next() ;  
+		int old_size = rs.getInt("size") ; 
 		for(int i=0;i<image.size();++i) {
 			RspImage rimg = image.get(i) ; 
 			String path = Message.getPhotePath(cno, i) ; 
@@ -87,7 +87,7 @@ public class MsgImageSave extends Message{
 	protected boolean isOwner(Connection conn, String no2) throws Exception { 
 		// TODO Auto-generated method stub
 		return conn.createStatement().executeQuery(String.format("select * from Selling where sno="
-						+ "\'%s\' and cno=\'%s\'"
+				+ "\'%s\' and cno=\'%s\'"
 				, no2 , cno)).next();
 	}
 

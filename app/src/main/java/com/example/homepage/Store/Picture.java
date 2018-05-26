@@ -10,14 +10,13 @@ import com.example.homepage.Account;
 import com.example.homepage.MessageAsync;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import Message.MsgImageDate;
 import Message.MsgImageFetch;
+import Respond.RspDate;
 import Respond.RspImage;
 
 /**
@@ -131,7 +130,8 @@ public class Picture extends CacheData{
     }
 
     @Override
-    public void getFromDataBase(final CacheCallBack callback) {
+    public void getFromDataBase(CacheCallBack callback) {
+        cachecallback = callback ;
         new MessageAsync<RspImage>(new MsgImageFetch(Account.account , Account.password ,
                 cno , num)) {
 
@@ -144,23 +144,17 @@ public class Picture extends CacheData{
                         String path = createImageFile(); /// 获得mCurrentPhotoPath
                         fetch = new FetchBitmapFromFile(path) ;
                         result.saveImage(path); result.data = null ;
-                        callback.callback(THIS);
+                        cachecallback.callback(THIS);
                     }
                     catch (Exception e) {
-                        callback.callback(null);
+                        cachecallback.callback(null);
                         return ;
                     }
 
                 }
-                else callback.callback(null);
+                else cachecallback.callback(null);
             }
         }.excute();
-    }
-
-    @Override
-    public boolean outDate() {
-        /// Check the file.exist ;
-        return true;
     }
 
     public Bitmap getBitmapInBound(int width , int height) {
@@ -188,5 +182,27 @@ public class Picture extends CacheData{
     }
     public Bitmap getBitmapInBound() {
         return getBitmapInBound(-1 , -1) ;
+    }
+    @Override
+    public void getDateFromDataBase (CallBack callback) {
+        datecallback = callback ;
+        new MessageAsync<RspDate>(new MsgImageDate(cno , num)){
+
+            @Override
+            public void handle_result(RspDate result, int cnt) {
+                if(result.success()) {
+                    Date server_date = result.date ;
+                    datecallback.callback(server_date);
+                }
+            }
+        }.excute();
+    }
+
+    @Override
+    protected boolean available() {
+        BitmapFactory.Options options = new BitmapFactory.Options() ;
+        options.inJustDecodeBounds = true ;
+        Bitmap bitmap = fetch.fetchBitmap(options) ;
+        return bitmap != null;
     }
 }

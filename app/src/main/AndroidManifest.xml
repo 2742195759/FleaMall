@@ -20,12 +20,8 @@
         tools:replace="android:icon">
         <activity
             android:name=".HomePageActivity"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:launchMode="singleTask"
+            android:theme="@style/NoActionBar">
         </activity>
         <activity
             android:name=".MessageActivity"
@@ -37,12 +33,26 @@
             android:name=".SettingActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".LoginActivity"
-            android:launchMode="singleTask" />
+            android:name=".Activity.LoginActivity"
+            android:label="FleaMall"
+            android:theme="@style/chat_module_AppTheme.NoActionBar">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".RegisterActivity"
-            android:launchMode="singleTask" />
+            android:name=".Activity.RegisterActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/chat_module_AppTheme.NoActionBar"/>
 
+        <activity
+            android:name=".Activity.ChatMainActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/chat_module_AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Activity.ChatRoomActivity"
+            android:theme="@style/chat_module_AppTheme.NoActionBar"/>
         <activity android:name=".UserUpdateActivity" />
         <activity android:name=".ChangeNickActivity" />
 
@@ -52,7 +62,8 @@
         <activity android:name=".SearchActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".SearchShowActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:theme="@style/NoActionBar"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
