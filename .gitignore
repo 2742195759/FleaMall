@@ -5,3 +5,8 @@ GTAGS
 GRTAGS
 GPATH
 HTML
+library/build
+chatModule/build
+app/build
+library/library.iml
+app/app.iml
