@@ -143,9 +143,17 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
                     }
                 }
                 else{
+<<<<<<< HEAD
                         Intent intend = new Intent(v.getContext(),ShowLargePicture.class);
                          intend.putExtra("extra_int",x);
                         v.getContext().startActivity(intend) ;
+=======
+                        Picture pic = pictures.get(x) ;
+                        Intent intent = new Intent(v.getContext(),ShowLargePicture.class);
+                        intent.putExtra("picture" , "sdfd") ;
+                        v.getContext().startActivity(intent) ;
+
+>>>>>>> 8eeba8ce985a1c5afe9210e85b71a14410b51022
                 }
             }
         });

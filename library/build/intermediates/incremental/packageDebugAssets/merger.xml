@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="C:\Users\13058\Documents\GitHub\Fleamall\library\src\main\assets"/><source path="C:\Users\13058\Documents\GitHub\Fleamall\library\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\13058\Documents\GitHub\Fleamall\library\src\debug\assets"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="C:\Users\xuan\Documents\FleaMall\library\src\main\assets"/><source path="C:\Users\xuan\Documents\FleaMall\library\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\xuan\Documents\FleaMall\library\src\debug\assets"/></dataSet></merger>
+>>>>>>> 8eeba8ce985a1c5afe9210e85b71a14410b51022

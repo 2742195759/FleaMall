@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.homepage.Account;
+import com.example.homepage.CommodityDetailsActivity;
 import com.example.homepage.CreatSellCommodity;
 import com.example.homepage.R;
 import com.example.homepage.Store.Commodity;
@@ -50,7 +51,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> 
         holder.goodsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intend = new Intent(v.getContext() , CreatSellCommodity.class) ;
+                Intent intend = new Intent(v.getContext() , CommodityDetailsActivity.class) ;
                 intend.putExtra("commodity" , holder.cno) ;
                 v.getContext().startActivity(intend) ;
             }

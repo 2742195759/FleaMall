@@ -1,5 +1,6 @@
 -- Merging decision tree log ---
 manifest
+<<<<<<< HEAD
 ADDED from C:\Users\13058\Documents\GitHub\Fleamall\library\src\main\AndroidManifest.xml:1:1-10:12
 INJECTED from C:\Users\13058\Documents\GitHub\Fleamall\library\src\main\AndroidManifest.xml:1:1-10:12
 INJECTED from C:\Users\13058\Documents\GitHub\Fleamall\library\src\main\AndroidManifest.xml:1:1-10:12
@@ -33,3 +34,38 @@ INJECTED from C:\Users\13058\Documents\GitHub\Fleamall\library\src\main\AndroidM
 		INJECTED from C:\Users\13058\Documents\GitHub\Fleamall\library\src\main\AndroidManifest.xml
 application
 ADDED from C:\Users\13058\Documents\GitHub\Fleamall\library\src\main\AndroidManifest.xml:8:1-16
+=======
+ADDED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:1:1-10:12
+	package
+		ADDED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:2:1-31
+		INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:4:1-26
+		INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:1:11-69
+	android:versionCode
+		ADDED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:3:1-24
+		INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml
+uses-sdk
+ADDED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:6:1-68
+INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:6:1-68
+INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:6:1-68
+	android:targetSdkVersion
+		ADDED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:6:37-66
+	android:minSdkVersion
+		ADDED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:6:11-36
+		INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml
+application
+ADDED from C:\Users\xuan\Documents\FleaMall\library\src\main\AndroidManifest.xml:8:1-16
+>>>>>>> 8eeba8ce985a1c5afe9210e85b71a14410b51022

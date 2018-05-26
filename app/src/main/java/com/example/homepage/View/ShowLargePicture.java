@@ -1,21 +1,15 @@
 package com.example.homepage.View;
-
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.homepage.R;
 
@@ -27,23 +21,23 @@ import static com.example.homepage.View.PictureShowAdapter.pictures;
 
 public class ShowLargePicture extends AppCompatActivity {
 
+    //定义一个View的数组
+    private List<View> views=new ArrayList<>();
     private ViewPager list_pager;
-    private List<View> list_view;
-    private viewpageAdapter adpter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         /*标题栏 隐去*/
         ActionBar actionbar = getSupportActionBar();
         if(actionbar!=null) {
             actionbar.hide();
         }
         int n= getIntent().getIntExtra("extra_int",0);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_large_picture);
+
         list_pager = (ViewPager)findViewById(R.id.large_viewpager);
-        list_view = new ArrayList<>();
+
 
         int j=0;
         for(int i=0;i<actual_size;i++)
@@ -56,16 +50,11 @@ public class ShowLargePicture extends AppCompatActivity {
             else{
                 imageView.setImageBitmap(pictures.get(j++).getBitmapInBound());
             }
-            list_view.add(imageView);
+            views.add(imageView);
         }
-        adpter = new viewpageAdapter(list_view);
-        list_pager.setAdapter(adpter);
-        // 刚开始的时候 吧当前页面是先到最大值的一半 为了循环滑动
-        int currentItem = Integer.MAX_VALUE / 2;
-        // 让第一个当前页是 0
-        currentItem = currentItem - ((Integer.MAX_VALUE / 2) % actual_size);
-        list_pager.setCurrentItem(currentItem);
 
+        //为ViewPager设置适配器
+        list_pager.setAdapter(new MyAdapter());
         list_pager.setOnTouchListener(new View.OnTouchListener() {
             int touchFlag = 0;
             float x = 0, y = 0;
@@ -96,29 +85,36 @@ public class ShowLargePicture extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
-    public class viewpageAdapter extends PagerAdapter {
-        private List<View> list_view;
-        public viewpageAdapter(List<View> list_view) {
-            this.list_view = list_view;
-        }
+    class MyAdapter extends PagerAdapter {
+
         @Override
         public int getCount() {
-            return Integer.MAX_VALUE;
+            return views.size();
         }
+
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view==object;
         }
+
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(list_view.get(position % list_view.size()));
-            return list_view.get(position % list_view.size());
+            View v=views.get(position);
+            container.addView(v);
+
+            return v;
         }
+
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(list_view.get(position % list_view.size()));
+            View v=views.get(position);
+            //前一张图片划过后删除该View
+            container.removeView(v);
         }
+
+
     }
 }

@@ -115,7 +115,11 @@
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Android API 24 Platform" jdkType="Android SDK" />
+=======
+    <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />
+>>>>>>> 8eeba8ce985a1c5afe9210e85b71a14410b51022
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.android.support.constraint:constraint-layout-solver:1.0.2@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test.espresso:espresso-idling-resource-2.2.2" level="project" />
