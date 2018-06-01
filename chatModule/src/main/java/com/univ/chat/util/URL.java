@@ -9,6 +9,7 @@ public class URL {
     public static final String UPDATE_GCM = BASE_URL + "/users/%s";
     public static final String GET_ALL_USERS = BASE_URL + "/users?exclude=%s";
     public static final String GET_ALL_COMMUNICATIONS = BASE_URL + "/communication/%s";
+    public static final String CREATE_COMMUNICATIONS = BASE_URL + "/communication/create";
     public static final String DEL_COMMUNICATIONS = BASE_URL + "/communication/delete/%s/%s";
     public static final String FETCH_CHAT_THREAD = BASE_URL + "/messages?from=%s&to=%s";
     public static final String SEND_MESSAGE = BASE_URL + "/messages";

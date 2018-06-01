@@ -1,11 +1,13 @@
 package com.example.homepage;
 
 import android.app.Activity;
+import android.content.ContentProvider;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +30,9 @@ import com.example.homepage.Store.CacheKeyCommodity;
 import com.example.homepage.Store.Commodity;
 import com.example.homepage.View.BottomTitleLayout;
 import com.example.homepage.View.PictureShowView;
+import com.soundcloud.android.crop.Crop;
+
+import java.io.File;
 
 import Message.MsgCommodityCreateSell;
 import Message.MsgImageSave;
@@ -38,8 +43,7 @@ public class CreatSellCommodity extends AppCompatActivity {
     Activity activity = this ;
     PictureShowView img ;
     static final int REQUEST_IMAGE_CAPTURE = 1 ;
-    public static final int TAKE_PHOTO = 1;
-    public static final int CHOOSE_PHOTO = 2;
+    static final int REQUEST_IMAGE_CROP = 2 ;
     private ImageView picture ;
     private Uri imageUri ;
     EditText information ;
@@ -147,8 +151,15 @@ public class CreatSellCommodity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int req , int res , Intent data) {
-        if (req == REQUEST_IMAGE_CAPTURE && res == RESULT_OK) {
-            img.onTakePicture();
+        if (res == RESULT_OK) {
+            if (req == REQUEST_IMAGE_CAPTURE) {
+                Uri uri = img.getCurrentUri(activity) ;
+                Intent i = Crop.of(img.getCurrentUri(activity) , img.getCurrentUri(activity)).asSquare()
+                .getIntent(activity).putExtra("path" , img.getCurrentPath(activity)) ;
+                activity.startActivityForResult(i , Crop.REQUEST_CROP);
+            } else if (req == Crop.REQUEST_CROP) {
+                img.onTakePicture(); ///把裁减之后的图片返回给客户端。
+            }
         }
     }
 

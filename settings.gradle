@@ -1,1 +1,1 @@
-include ':app' , ':chatModule' , ':library'
+include ':app' , ':chatModule' , ':library' , ':cropLib'

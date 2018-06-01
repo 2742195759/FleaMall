@@ -85,17 +85,18 @@ class Authority{
 }
 
 public abstract class Message implements java.io.Serializable{
+	public static String[] user_query_column = {"sno" , "addr" , "conway" , "nick"} ; 
 	/**
 	 * 
 	 */
-//	static final String server_ip = "127.0.0.1" ;
+//	static final String server_ip = "10.42.0.1" ;
 //	static final int port = 3511 ;
-//	static final String image_path = "/home/xopngkun/桌面/image/" ; 
-//	static final String path_delm = "/" ; 
+//	static final String image_path = "/home/xopngkun/桌面/image/" ;
+//	static final String path_delm = "/" ;
 	static final String server_ip = "211.159.180.189" ;
 	static final int port = 3511 ;
 	static final String image_path = "C:\\image\\" ;
-	static final String path_delm = "\\" ; 
+	static final String path_delm = "\\" ;
 	protected static String getPhotePath(String cno , int pno) {
 		return String.format(image_path + "%s%s%03d.jpg", cno , path_delm , pno) ; 
 	}

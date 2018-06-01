@@ -1,5 +1,6 @@
 package com.example.homepage.View;
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,6 +29,7 @@ import com.example.homepage.Store.Picture;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.security.Provider;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -161,7 +163,7 @@ class PictureShowAdapter extends RecyclerView.Adapter<PictureShowAdapter.Picture
 
 public class PictureShowView extends LinearLayout {
     RecyclerView rview = null ;
-    PictureShowAdapter adapter = new PictureShowAdapter() ;
+    public PictureShowAdapter adapter = new PictureShowAdapter() ;
     public PictureShowView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.picture_show_view , this) ;
@@ -228,11 +230,27 @@ public class PictureShowView extends LinearLayout {
         return adapter.actual_size ;
     }
     public byte[] getPictureByteArray(int index) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        adapter.pictures.get(index).getBitmapInBound().compress(Bitmap.CompressFormat.JPEG ,10 , baos) ;
+        ByteArrayOutputStream baos ;
+        Bitmap bitmap = adapter.pictures.get(index).getBitmapInBound() ;
+        int quality = 100 ;
+        int k ;
+        do {
+            quality -= 10 ;
+            baos = new ByteArrayOutputStream() ;
+            bitmap.compress(Bitmap.CompressFormat.JPEG , quality , baos) ;
+        }
+        while((k = baos.size()) > 200*1024) ;
         return baos.toByteArray() ;
     }
     public int getPictureOriginOrder(int index) {
         return -1 ;
+    }
+    public Uri getCurrentUri(Activity ac) {
+        return FileProvider.getUriForFile(ac,
+                "com.example.homepage.fileprovider",
+                new File(adapter.mCurrentPhotoPath));
+    }
+    public String getCurrentPath(Activity ac) {
+        return adapter.mCurrentPhotoPath ;
     }
 }

@@ -12,7 +12,6 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
-        android:name="com.example.homepage.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -77,7 +76,8 @@
 
         <activity android:name=".SelectPicPopupWindow" />
         <activity android:name=".View.ShowLargePicture" />
-        <activity android:name=".CommodityDetailsActivity"></activity>
+        <activity android:name=".Activity.CommodityDetailsActivity"></activity>
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
     </application>
 
 </manifest>

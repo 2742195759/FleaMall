@@ -40,5 +40,6 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.0'
     implementation project(':library')
     implementation project(':chatModule')
+    implementation project(':cropLib')
     //implementation name:'sweet-dialog',ext:'aar'
 }

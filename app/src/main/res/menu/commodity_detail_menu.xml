@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- "Mark Favorite", should appear as action button if possible -->
+    <item
+        android:id="@+id/action_favorite"
+        android:icon="@drawable/favorite1"
+        android:title="收藏"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_chat"
+        android:icon="@drawable/start_chat"
+        android:title="聊天"
+        app:showAsAction="always"/>
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/action_delete"
+        android:title="删除"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_update"
+        android:title="修改"
+        app:showAsAction="never"/>
+
+</menu>
