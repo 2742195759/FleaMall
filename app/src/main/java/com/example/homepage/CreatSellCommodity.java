@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBar;
@@ -28,6 +29,7 @@ import com.example.homepage.Store.CacheCallBack;
 import com.example.homepage.Store.CacheData;
 import com.example.homepage.Store.CacheKeyCommodity;
 import com.example.homepage.Store.Commodity;
+import com.example.homepage.Store.Picture;
 import com.example.homepage.View.BottomTitleLayout;
 import com.example.homepage.View.PictureShowView;
 import com.soundcloud.android.crop.Crop;
@@ -161,8 +163,24 @@ public class CreatSellCommodity extends AppCompatActivity {
                 img.onTakePicture(); ///把裁减之后的图片返回给客户端。
             }
         }
+            else if(req == CHOOSE_PHOTO  &&  res == RESULT_OK)
+            {
+                //判断手机系统版本号
+                if(Build.VERSION.SDK_INT >=19){
+                    //4.4及以上系统使用该方法处理图片
+                    handleImageOnKitKat(data);
+                    }else{
+                    //4.4以下系统使用该方法处理图片
+                    handleImageBeforeKitKat(data);
+                    }
+            }
     }
 
+    public void openAlbum() {
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        activity.startActivityForResult(intent, CHOOSE_PHOTO); // 打开相册
+    }
     @Override
     public void onRequestPermissionsResult(int req , String[] permissions ,int[] res) {
         if(REQUEST_IMAGE_CAPTURE == req) {
@@ -171,6 +189,15 @@ public class CreatSellCommodity extends AppCompatActivity {
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 }
+            }
+        }
+       else  if(CHOOSE_PHOTO == req) {
+            if(res.length > 0 && res[0] == PackageManager.PERMISSION_GRANTED) {
+                openAlbum();
+            }
+            else
+            {
+                Toast.makeText(this,"You denied the permission",Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -223,7 +250,8 @@ public class CreatSellCommodity extends AppCompatActivity {
     private void displayImage(String imagePath) {
         if (imagePath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-            picture.setImageBitmap(bitmap);
+            Picture p = new Picture(imagePath);
+            img.addPicture(p);
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
         }
